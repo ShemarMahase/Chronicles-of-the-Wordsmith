@@ -57,3 +57,5 @@ Anaconda3/
 
 # Ignore Windows AppData folders
 AppData/
+
+.vs/
