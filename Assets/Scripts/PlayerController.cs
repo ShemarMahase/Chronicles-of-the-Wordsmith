@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    private void Update()
+    public void HandleUpdate()
     {
         if (!isMoving)
         {
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         //do interaction stuff idk
         if (collider != null)
         {
-
+            collider.GetComponent<Interactable>()?.Interact();
         }
     }
 }
