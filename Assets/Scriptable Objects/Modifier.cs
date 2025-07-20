@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Buff", menuName = "Scriptable Objects/Buff")]
-public abstract class Buff : ScriptableObject
+[CreateAssetMenu(fileName = "Modifier", menuName = "Scriptable Objects/Modifier")]
+public abstract class Modifier : ScriptableObject
 {
     enum ModifierType
     {
