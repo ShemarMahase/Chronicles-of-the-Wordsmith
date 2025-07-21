@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 500230174218560112}
   - component: {fileID: 5787496965782965402}
   - component: {fileID: 4557126652029707838}
-  - component: {fileID: 7832299332791325897}
+  - component: {fileID: 5838998196820215619}
   m_Layer: 5
   m_Name: Translation Card
   m_TagString: Untagged
@@ -257,8 +257,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5787496965782965402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &7832299332791325897
+      m_Calls:
+      - m_Target: {fileID: 5838998196820215619}
+        m_TargetAssemblyTypeName: TranslationCardLogic, Assembly-CSharp
+        m_MethodName: OnCardClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5838998196820215619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,7 +279,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6435418202752439084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f94431da5ccf610438bf6de128c64738, type: 3}
+  m_Script: {fileID: 11500000, guid: bbdbd77247bb2914997f891b5ee07569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardText: {fileID: 739420981270772994}
+  uiController: {fileID: 0}

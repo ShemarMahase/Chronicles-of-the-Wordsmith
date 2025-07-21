@@ -1,19 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class HandVisualizer : MonoBehaviour
 {
+    public TranslationInputUIController translationUIController;
     public GameObject TranslationCard;
     public GameObject MatchingCard;
     public GameObject MultipleChoiceCard;
     public RectTransform cardArea;
 
+    private List<GameObject> currentCards = new List<GameObject>();
+
     //Instantiates each card
     public void visualizeHand(Card[] cards, int handsize)
     {
-        for(int i = 0; i < handsize; i++)
+
+        for (int i = 0; i < handsize; i++)
         {
             CreateCard(cards[i]);
+
         }
     }
     //Matches incoming card and instantiates the corresponding prefab
@@ -25,6 +31,13 @@ public class HandVisualizer : MonoBehaviour
         {
             case Card.cardType.Translation:
                 gameObj = Instantiate(TranslationCard, cardArea);
+                TranslationCardLogic translationLogic = gameObj.GetComponent<TranslationCardLogic>();
+                if (translationLogic != null)
+                {
+                    translationLogic.uiController = translationUIController;
+                    translationLogic.setCard(card);
+                    translationLogic.onCardSelected = OnCardSelected;
+                }
                 break;
             case Card.cardType.MultipleChoice:
                 gameObj = Instantiate(MultipleChoiceCard, cardArea);
@@ -33,8 +46,26 @@ public class HandVisualizer : MonoBehaviour
                 gameObj = Instantiate(MatchingCard, cardArea);
                 break;
         }
-        CardLogic visual = gameObj.GetComponent<CardLogic>();
+
+        if (gameObj != null)
+        {
+            currentCards.Add(gameObj);
+        }
         LayoutRebuilder.ForceRebuildLayoutImmediate(cardArea);
-        visual.setCard(card);
+    }
+
+    private void ClearCards()
+    {
+        foreach (var cardObj in currentCards)
+        {
+            Destroy(cardObj);
+        }
+        currentCards.Clear();
+    }
+
+    private void OnCardSelected()
+    {
+        // Called when any card is selected
+        ClearCards();
     }
 }

@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
 
         //interact input
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && !isMoving)
         {
             Interact();
         }

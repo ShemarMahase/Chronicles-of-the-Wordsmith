@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105483efa2e42dc4993574dd2023d014, type: 3}
   m_Name: Rojo
   m_EditorClassIdentifier: 
+  type: 0
   text: Rojo
   mod: {fileID: 0}
+  correctTranslation: Red
   answer: Red
