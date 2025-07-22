@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class TranslationInputUIController : MonoBehaviour
 {
@@ -26,13 +27,12 @@ public class TranslationInputUIController : MonoBehaviour
         //stop loop if minigame ends
         if (!timerRunning || isComplete)
         {
-            UIManager.instance.DisableTranslationGame();
-            TurnManager.instance.TriggerPlayerAttack(isComplete);
+            StartCoroutine(EndMiniGameRoutine(isComplete));
             return;
         }
 
-            //timer for minigame
-            timeLeft -= Time.deltaTime;
+        //timer for minigame
+        timeLeft -= Time.deltaTime;
         timerText.text = Mathf.CeilToInt(timeLeft).ToString();
 
         if (timeLeft <= 0f)
@@ -70,7 +70,7 @@ public class TranslationInputUIController : MonoBehaviour
 
         //Ignore empty or too short inputs to prevent false positives
         if (string.IsNullOrWhiteSpace(userInput) || userInput.Length < 2)
-        return;
+            return;
 
         //stop timer early if correct
         string correctAnswer = currentCard.GetCorrectTranslation();
@@ -86,5 +86,12 @@ public class TranslationInputUIController : MonoBehaviour
     {
         resultPanel.SetActive(true);
         resultText.text = isCorrect ? "Correct!" : $"Wrong! \nAnswer: \n{currentCard.GetCorrectTranslation()}";
+    }
+
+    private IEnumerator EndMiniGameRoutine(bool isComplete)
+    {
+        yield return new WaitForSeconds(2.5f);
+        UIManager.instance.DisableTranslationGame();
+        TurnManager.instance.TriggerPlayerAttack(isComplete);
     }
 }
