@@ -24,10 +24,15 @@ public class TranslationInputUIController : MonoBehaviour
     void Update()
     {
         //stop loop if minigame ends
-        if (!timerRunning || isComplete) return;
+        if (!timerRunning || isComplete)
+        {
+            UIManager.instance.DisableTranslationGame();
+            TurnManager.instance.TriggerPlayerAttack(isComplete);
+            return;
+        }
 
-        //timer for minigame
-        timeLeft -= Time.deltaTime;
+            //timer for minigame
+            timeLeft -= Time.deltaTime;
         timerText.text = Mathf.CeilToInt(timeLeft).ToString();
 
         if (timeLeft <= 0f)

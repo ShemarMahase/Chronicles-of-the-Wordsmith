@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR;
 
 public class EnemyCombat : Combat
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         TurnManager.initializeSelf += InitializeSelf;
     }
@@ -17,6 +18,8 @@ public class EnemyCombat : Combat
 
     void InitializeSelf(object sender, System.EventArgs e)
     {
-
+        SetName("Enemy");
+        SendSelf(this);
     }
+
 }

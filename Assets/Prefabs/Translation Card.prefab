@@ -173,7 +173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 762.62445, y: 35.75811}
+  m_AnchoredPosition: {x: 280.72705, y: 220.16408}
   m_SizeDelta: {x: 105.2612, y: 149.9812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &500230174218560112
@@ -283,4 +283,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardText: {fileID: 739420981270772994}
-  uiController: {fileID: 0}
+  uiController: {fileID: 5231623339923349189, guid: 96a79fd04e7ff2a44b9a561c192370ca, type: 3}
