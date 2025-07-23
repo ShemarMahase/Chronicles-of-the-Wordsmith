@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
     private bool[] checks = { false, false };
     Combat player;
     Combat enemy;
+    bool gameOver = false;
     public enum Stat
     {
         Attack,
@@ -100,16 +101,22 @@ public class TurnManager : MonoBehaviour
     //loops through player and enemy turns into someone is defeated
     IEnumerator playTurns()
     {
-        Debug.Log("Starting with player turn");
-        UIManager.instance.EnableActionUI();
-        yield return WaitForPlayer();
-        //playerTurn?.Invoke(instance, EventArgs.Empty);
-        yield return WaitForPlayer();
+        while (!gameOver)
+        {
+            resetChecks();
+            Debug.Log("player turn");
+            UIManager.instance.EnableActionUI();
+            yield return WaitForChecks();
+            resetChecks();
+            Debug.Log("Enemy turn");
+            enemyTurn?.Invoke(instance, EventArgs.Empty);
+            yield return WaitForChecks();
+        }
     }
     //loops until player action is enacted
-    IEnumerator WaitForPlayer()
+    IEnumerator WaitForChecks()
     {
-        while (!checks[0])
+        while (!(checks[0] && checks[1]))
         {
             yield return null;
         }

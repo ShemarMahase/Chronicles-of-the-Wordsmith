@@ -8,6 +8,7 @@ public class EnemyCombat : Combat
     void Awake()
     {
         TurnManager.initializeSelf += InitializeSelf;
+        TurnManager.enemyTurn += PlayTurn;
     }
 
     // Update is called once per frame
@@ -20,6 +21,11 @@ public class EnemyCombat : Combat
     {
         SetName("Enemy");
         SendSelf(this);
+    }
+
+    void PlayTurn(object sender, EventArgs e)
+    {
+        Attack(this,stats.GetStat(TurnManager.Stat.Attack));
     }
 
 }
