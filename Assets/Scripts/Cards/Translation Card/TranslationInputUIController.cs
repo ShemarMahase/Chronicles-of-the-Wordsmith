@@ -90,7 +90,7 @@ public class TranslationInputUIController : MonoBehaviour
 
     private IEnumerator EndMiniGameRoutine(bool isComplete)
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         UIManager.instance.DisableTranslationGame();
         TurnManager.instance.TriggerPlayerAttack(isComplete);
     }
