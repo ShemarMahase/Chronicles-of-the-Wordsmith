@@ -13,8 +13,8 @@ public abstract class Combat : MonoBehaviour
 
     public Slider playerHealthBar;
     public GameObject damageNumberPrefab;
-
-
+    protected Vector2 startPos;
+    protected Vector2 StrikePos;
     private void Start()
     {
         stats = GetComponent<StatSheet>();
@@ -73,6 +73,7 @@ public abstract class Combat : MonoBehaviour
         }
         anim.SetBool("isMoving", false);
     }
+    //Called when turn Manager sends damage. Decreases health
     void Defend(Combat attacker, float damage)
     {
         if (attacker.GetName() == GetName())

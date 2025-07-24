@@ -12,49 +12,49 @@ public class PlayerCombat : Combat
     bool fullDamage = false;
     int handSize = 3;
     [SerializeField] HandVisualizer handVisual;
-    Vector2 starPos = new Vector2(-6.36f, -.29f);
-    Vector2 StrikePos = new Vector2(5.09f, -.29f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         TurnManager.playerTurn += startTurn;
         TurnManager.initializeSelf += InitializeSelf;
         TurnManager.playerAttack += LaunchAttack;
+        startPos = new Vector2(-6.36f, -.29f);
+        StrikePos = new Vector2(5.09f, -.29f);
     }
 
+    //Starts attack sequence
     private void LaunchAttack(bool complete)
     {
         fullDamage = complete;
         StartCoroutine(AttackAnimation());
     }
+    //Controls walk to enemy, attacking, and walking back
     IEnumerator AttackAnimation()
     {
-        yield return Move(starPos, StrikePos);
+        yield return Move(startPos, StrikePos);
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
-        yield return Move(StrikePos, starPos);
+        yield return Move(StrikePos, startPos);
         Debug.Log("Player is Ready");
         TurnManager.instance.setCheck(this, true);
     }
+    //animation event, deals damage on impact frame
     public void DealDamage()
     {
+        Debug.Log("damage dealt");
         float damage = stats.GetStat(TurnManager.Stat.Attack);
         if (!fullDamage) damage /= 2;
         TurnManager.instance.LaunchAttack(this, damage);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Initializes name and deck, and sends self to turn manager
     void InitializeSelf(object sender, System.EventArgs e)
     {
         SetName("Player");
         SendSelf(this);
         deck.InitializeDeck();
     }
+    //Starts a new turn
     void startTurn(object sender, System.EventArgs e)
     {
         deck.getNextHand(hand, handSize);
