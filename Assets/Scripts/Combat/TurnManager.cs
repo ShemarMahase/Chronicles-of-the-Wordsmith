@@ -64,7 +64,6 @@ public class TurnManager : MonoBehaviour
         if (attacker.GetName() == "Player") target = enemy;
         else target = player;
         defend?.Invoke(target, damage);
-        setCheck(attacker, true);
     }
     //Adds combatant to turnmanager for easy reference
     public void AddCombatant(Combat combatant)
@@ -75,7 +74,7 @@ public class TurnManager : MonoBehaviour
     //Sets check for corresponding combatants checks[0] is player checks[1] is enemy
     public void setCheck(Combat combatant, bool check)
     {
-        Debug.Log(combatant.GetName() + " is " + combatant.GetName() + "and combtant is a player is " + (combatant.GetName() == "Player"));
+        Debug.Log(combatant.GetName() + "Checked" );
         if (combatant.GetName() == "Player") checks[0] = check;
         else checks[1] = check;
     }
@@ -129,23 +128,23 @@ public class TurnManager : MonoBehaviour
             yield return null;
         }
     }
-
+    //Action button is pressed, player can select card
     public void PlayerAction()
     {
         UIManager.instance.DisableActionUI();
         playerTurn?.Invoke(instance, EventArgs.Empty);
     }
-
+    //Shuffle button is pressed, player can shuffle style
     public void ShufflePlayer()
     {
         Debug.Log("Doesn't do anything yet");
     }
-
+    //Item button is pressed, player can use item
     public void UseItem()
     {
         Debug.Log("Doesn't do anything yet");
     }
-
+    //Triggers player actions sequence
     public void TriggerPlayerAttack(bool fullDamage)
     {
         playerAttack?.Invoke(fullDamage);

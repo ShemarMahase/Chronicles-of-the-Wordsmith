@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -8,8 +9,11 @@ public class PlayerCombat : Combat
 {
     private Deck deck = new Deck();
     private Card[] hand = new Card[10];
+    bool fullDamage = false;
     int handSize = 3;
     [SerializeField] HandVisualizer handVisual;
+    Vector2 starPos = new Vector2(-6.36f, -.29f);
+    Vector2 StrikePos = new Vector2(5.09f, -.29f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -18,10 +22,24 @@ public class PlayerCombat : Combat
         TurnManager.playerAttack += LaunchAttack;
     }
 
-    private void LaunchAttack(bool fullDamage)
+    private void LaunchAttack(bool complete)
+    {
+        fullDamage = complete;
+        StartCoroutine(AttackAnimation());
+    }
+    IEnumerator AttackAnimation()
+    {
+        yield return Move(starPos, StrikePos);
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(1f);
+        yield return Move(StrikePos, starPos);
+        Debug.Log("Player is Ready");
+        TurnManager.instance.setCheck(this, true);
+    }
+    public void DealDamage()
     {
         float damage = stats.GetStat(TurnManager.Stat.Attack);
-        if(!fullDamage) damage /= 2;
+        if (!fullDamage) damage /= 2;
         TurnManager.instance.LaunchAttack(this, damage);
     }
 
@@ -33,7 +51,6 @@ public class PlayerCombat : Combat
 
     void InitializeSelf(object sender, System.EventArgs e)
     {
-        Debug.Log("its making it this far right?");
         SetName("Player");
         SendSelf(this);
         deck.InitializeDeck();

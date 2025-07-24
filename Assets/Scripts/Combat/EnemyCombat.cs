@@ -25,7 +25,13 @@ public class EnemyCombat : Combat
 
     void PlayTurn(object sender, EventArgs e)
     {
-        Attack(this,stats.GetStat(TurnManager.Stat.Attack));
+        AttackAnimation();
+
+    }
+
+    public void AttackAnimation()
+    {
+        Attack(this, stats.GetStat(TurnManager.Stat.Attack));
     }
 
 }
