@@ -8,7 +8,7 @@ public class StatSheet : MonoBehaviour
     public int baseAttack = 10;
     public int baseDefense = 10;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         InitializeStats();
     }
