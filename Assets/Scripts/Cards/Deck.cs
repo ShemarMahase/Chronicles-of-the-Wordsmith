@@ -23,10 +23,15 @@ public class Deck
     }
     public void getNextHand(Card[] hand, int drawAmount)
     {
+        int tempCount = 0;
         Debug.Log(drawAmount);
-        if (currentCard + drawAmount >= cards.Count) shuffleDeck();
-        for (int i = 0; i < drawAmount; i++) hand[i] = cards[i];
-
+        if (currentCard + drawAmount >= cards.Count)
+        {
+            for (tempCount = 0; tempCount < cards.Count; tempCount++) hand[tempCount] = cards[tempCount];
+            shuffleDeck();
+        }
+        for (int i = tempCount; i < drawAmount; i++) hand[i] = cards[i];
+        currentCard += drawAmount;
 
         }
     public void Scry(int amount) { }

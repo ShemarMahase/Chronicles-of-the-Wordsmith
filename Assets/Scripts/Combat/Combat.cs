@@ -63,7 +63,7 @@ public abstract class Combat : MonoBehaviour
     public IEnumerator Move(Vector2 start, Vector2 end)
     {
         anim.SetBool("isMoving", true);
-        float totalMovementTime = 3f;
+        float totalMovementTime = 1.5f;
         float currentTime = 0;
         while (Vector2.Distance(transform.position, end) > 0)
         {

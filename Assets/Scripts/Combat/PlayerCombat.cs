@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class PlayerCombat : Combat
 {
@@ -31,10 +32,15 @@ public class PlayerCombat : Combat
     //Controls walk to enemy, attacking, and walking back
     IEnumerator AttackAnimation()
     {
+        anim.SetFloat("moveX", 1);
+        anim.SetFloat("moveY", 0);
         yield return Move(startPos, StrikePos);
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
+        anim.SetFloat("moveX", -1);
         yield return Move(StrikePos, startPos);
+        anim.SetFloat("moveX", 0);
+        anim.SetFloat("moveY", -1);
         Debug.Log("Player is Ready");
         TurnManager.instance.setCheck(this, true);
     }
