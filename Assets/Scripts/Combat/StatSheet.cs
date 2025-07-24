@@ -4,6 +4,7 @@ using UnityEngine;
 public class StatSheet : MonoBehaviour
 {
     Dictionary<TurnManager.Stat, int> stats = new Dictionary<TurnManager.Stat, int>();
+    Stance stance;
     public int baseHealth = 10;
     public int baseAttack = 10;
     public int baseDefense = 10;
@@ -17,6 +18,16 @@ public class StatSheet : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void SetStance(Stance stance)
+    {
+        this.stance = stance;
+    }
+
+    private float GetModifiedStat(TurnManager.Stat stat)
+    {
+        return stats[stat];
     }
 
     private void InitializeStats()

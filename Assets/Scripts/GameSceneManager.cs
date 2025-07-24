@@ -25,4 +25,9 @@ public class GameSceneManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneNames.TESTSCENE);
     }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 }
