@@ -6,6 +6,7 @@ public class CardManager: MonoBehaviour
     public static CardManager Instance { get; private set; }
     public List<Card> PlayerDeck { get; private set; }
     [SerializeField] public List<Card> CardCollection;
+    [SerializeField] public List<Card> StanceCollection;
 
     //Initialize cards
     void Awake()
@@ -22,5 +23,10 @@ public class CardManager: MonoBehaviour
     public List<Card> GetPlayerCards()
     {
         return PlayerDeck;
+    }
+
+    public List<Card> GetStanceCards()
+    {
+        return StanceCollection;
     }
 }

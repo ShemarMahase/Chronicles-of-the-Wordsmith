@@ -16,7 +16,8 @@ public class TurnManager : MonoBehaviour
     public static event System.Action<Combat, float> defend;
     public static event EventHandler enemyTurn;
     public static event EventHandler initializeSelf;
-    public static event EventHandler initiateShuffle;
+    public static event System.Action initiateShuffle;
+    public static event System.Action<Stance> setStance;
 
     private bool[] checks = { false, false };
     Combat player;
@@ -93,7 +94,6 @@ public class TurnManager : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("Checks Complete");
         resetChecks();
         StartCoroutine(playTurns());
     }
@@ -120,14 +120,7 @@ public class TurnManager : MonoBehaviour
             yield return null;
         }
     }
-    //loops through until enemy action is completed
-    IEnumerator WaitForEnemy()
-    {
-        while (!checks[0])
-        {
-            yield return null;
-        }
-    }
+
     //Action button is pressed, player can select card
     public void PlayerAction()
     {
@@ -137,16 +130,25 @@ public class TurnManager : MonoBehaviour
     //Shuffle button is pressed, player can shuffle style
     public void ShufflePlayer()
     {
-        Debug.Log("Doesn't do anything yet");
+        checks[1] = true;
+        UIManager.instance.DisableActionUI();
+        initiateShuffle?.Invoke();
     }
     //Item button is pressed, player can use item
     public void UseItem()
     {
+        UIManager.instance.DisableActionUI();
         Debug.Log("Doesn't do anything yet");
     }
     //Triggers player actions sequence
     public void TriggerPlayerAttack(bool fullDamage)
     {
         playerAttack?.Invoke(fullDamage);
+    }
+
+    public void SetStance(Stance stance)
+    {
+        Debug.Log("Setting stance");
+        setStance?.Invoke(stance);
     }
 }

@@ -9,16 +9,21 @@ using UnityEngine.Windows;
 public class PlayerCombat : Combat
 {
     private Deck deck = new Deck();
+    private Deck stances = new Deck();
     private Card[] hand = new Card[10];
     bool fullDamage = false;
     int handSize = 3;
     [SerializeField] HandVisualizer handVisual;
+    [SerializeField] Stance stance;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    new void Start()
     {
+        base.Start();
         TurnManager.playerTurn += startTurn;
         TurnManager.initializeSelf += InitializeSelf;
         TurnManager.playerAttack += LaunchAttack;
+        TurnManager.initiateShuffle += ChangeStance;
+        TurnManager.setStance += SetStance;
         startPos = new Vector2(-6.36f, -.29f);
         StrikePos = new Vector2(5.09f, -.29f);
     }
@@ -59,12 +64,29 @@ public class PlayerCombat : Combat
         SetName("Player");
         SendSelf(this);
         deck.InitializeDeck();
+        stances.InitializeDeck(CardManager.Instance.GetStanceCards());
+
     }
     //Starts a new turn
     void startTurn(object sender, System.EventArgs e)
     {
-        deck.getNextHand(hand, handSize);
+        deck.getNextHand(hand, handSize, stance);
         handVisual.visualizeHand(hand, handSize);
+    }
+    //Changes players current stance
+    public void ChangeStance()
+    {
+        Debug.Log(hand);
+        stances.getNextHand(hand, handSize, stance);
+        handVisual.visualizeHand(hand, handSize);
+    }
+
+    public void SetStance(Stance stance)
+    {
+        this.stance = stance;
+        UIManager.instance.DisableCards();
+        Debug.Log("My stance is now " + this.stance.text);
+        setCheck(this, true);
     }
 
 

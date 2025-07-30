@@ -1,14 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
 public abstract class Card : ScriptableObject
 {
     public enum cardType
     {
         Translation,
         MultipleChoice,
-        Matching
+        Matching,
+        Stance
     }
 
     public cardType getCardType() { return type; }
@@ -27,4 +28,8 @@ public abstract class Card : ScriptableObject
         return correctTranslation;
     }
 
+    public void SetMod(Modifier modifier)
+    {
+        mod = modifier;
+    }
 }

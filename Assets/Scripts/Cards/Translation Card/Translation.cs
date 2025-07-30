@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Translation", menuName = "Scriptable Objects/Translation")]
+[CreateAssetMenu(fileName = "Translation", menuName = "Scriptable Objects/Cards/Translation")]
 public class Translation : Card
 {
     Translation()

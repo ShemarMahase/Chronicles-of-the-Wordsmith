@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public Button Shuffle;
     public Button Item;
     public RectTransform TranslationGame;
+    public Action onCardSelected;
+    public GameObject infoText;
     private void Awake()
     {
         if (instance == null)
@@ -46,6 +48,11 @@ public class UIManager : MonoBehaviour
     {
         TranslationGame.gameObject.SetActive(true);
         Debug.Log("should be active now");
+    }
+
+    public void DisableCards()
+    {
+        onCardSelected?.Invoke();
     }
 
     public TranslationInputUIController GetTranslationGame()

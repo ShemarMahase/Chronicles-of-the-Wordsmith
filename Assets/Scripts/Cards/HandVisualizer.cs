@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class HandVisualizer : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HandVisualizer : MonoBehaviour
     public GameObject TranslationCard;
     public GameObject MatchingCard;
     public GameObject MultipleChoiceCard;
+    public GameObject StanceCard;
     public RectTransform cardArea;
 
     private List<GameObject> currentCards = new List<GameObject>();
@@ -45,11 +47,26 @@ public class HandVisualizer : MonoBehaviour
             case Card.cardType.Matching:
                 gameObj = Instantiate(MatchingCard, cardArea);
                 break;
+            case Card.cardType.Stance:
+                gameObj = Instantiate(StanceCard, cardArea);
+                StanceController sc = gameObj.gameObject.GetComponent<StanceController>();
+                sc.SetStance(card as Stance);
+                Debug.Log("Stance set to " + (card as Stance).text);
+                gameObj.gameObject.GetComponent<Image>().sprite = (card as Stance).GetImage();
+                UIManager.instance.onCardSelected = OnCardSelected;
+                break;
         }
 
         if (gameObj != null)
         {
             currentCards.Add(gameObj);
+            if (card.mod)
+            {
+                Image mod = gameObj.transform.Find("Buff Icon").GetComponent<Image>();
+                if (card.mod.GetSprite()) mod.sprite = card.mod.GetSprite();
+                ModifierController modifierController = gameObj.GetComponent<ModifierController>();
+                modifierController.SetMod(card.mod);
+            }
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(cardArea);
     }

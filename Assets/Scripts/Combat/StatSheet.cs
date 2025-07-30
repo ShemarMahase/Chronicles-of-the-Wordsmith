@@ -1,35 +1,40 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
-public class StatSheet : MonoBehaviour
+[CreateAssetMenu(fileName = "StatSheet", menuName = "Scriptable Objects/StatSheet")]
+public class StatSheet : ScriptableObject
 {
     Dictionary<TurnManager.Stat, int> stats = new Dictionary<TurnManager.Stat, int>();
-    Stance stance;
-    public int baseHealth = 10;
-    public int baseAttack = 10;
-    public int baseDefense = 10;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    [SerializeField] Stance stance;
+    [SerializeField] int baseHealth = 0;
+    [SerializeField] int baseAttack = 0;
+    [SerializeField] int baseDefense = 0;
+    
+    //When Scriptable object is loaded, initialize stats
+    void OnEnable()
     {
-        InitializeStats();
+        if (stats.Count == 0)
+        {
+            InitializeStats();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Clears Stance
+    public void ClearStance()
     {
-
+        stance = null;
     }
-
+    //Sets active stance, no stance is default of 0 values
     public void SetStance(Stance stance)
     {
         this.stance = stance;
     }
-
-    private float GetModifiedStat(TurnManager.Stat stat)
+    //Gets what a stat would be after stance modifications
+    private float GetStancedStat(TurnManager.Stat stat)
     {
-        return stats[stat];
+        return stance ? (stats[stat] + stance.GetStat(stat)): stats[stat];
     }
-
+    //Initializes stats by putting them into a dictionary
     private void InitializeStats()
     {
         stats.Add(TurnManager.Stat.Health, baseHealth);
@@ -37,7 +42,7 @@ public class StatSheet : MonoBehaviour
         stats.Add(TurnManager.Stat.Attack, baseAttack);
         stats.Add(TurnManager.Stat.Defense, baseDefense);
     }
-
+    // Adds a modifier to a prexisting stat
     public void ModifyStat(TurnManager.Stat stat, int amount)
     {
         if (stats.ContainsKey(stat))
@@ -45,7 +50,7 @@ public class StatSheet : MonoBehaviour
             stats[stat] += amount;
         }
     }
-
+    //Sets a stat directly to a value
     public void SetStat(TurnManager.Stat stat, int amount)
     {
         if (stats.ContainsKey(stat))
@@ -53,10 +58,10 @@ public class StatSheet : MonoBehaviour
             stats[stat] = amount;
         }
     }
-
+    // Gets final stat with modifications
     public float GetStat(TurnManager.Stat stat)
     {
-        if (stats.ContainsKey(stat)) return stats[stat];
+        if (stats.ContainsKey(stat)) return GetStancedStat(stat);
         else return -1f;
     }
 }
