@@ -24,6 +24,8 @@ public class PlayerCombat : Combat
         TurnManager.playerAttack += LaunchAttack;
         TurnManager.initiateShuffle += ChangeStance;
         TurnManager.setStance += SetStance;
+        TurnManager.triggerPlayerEffects += TriggerEffectTicks;
+        TurnManager.setPlayerMod += SetMod;
         startPos = new Vector2(-6.36f, -.29f);
         StrikePos = new Vector2(5.09f, -.29f);
     }
@@ -55,7 +57,13 @@ public class PlayerCombat : Combat
         Debug.Log("damage dealt");
         float damage = stats.GetStat(TurnManager.Stat.Attack);
         if (!fullDamage) damage /= 2;
-        TurnManager.instance.LaunchAttack(this, damage);
+        if (pendingMod?.GetTarget() == Modifier.EffectTarget.Self)
+        {
+            pendingMod.onApply(this);
+            pendingMod = null;
+
+        }
+        TurnManager.instance.LaunchAttack(this, damage, pendingMod);
     }
 
     //Initializes name and deck, and sends self to turn manager
@@ -87,6 +95,12 @@ public class PlayerCombat : Combat
         UIManager.instance.DisableCards();
         Debug.Log("My stance is now " + this.stance.text);
         setCheck(this, true);
+    }
+
+    public void SetMod(Modifier mod)
+    {
+        pendingMod = mod;
+        Debug.Log("player mod got set to " + pendingMod);
     }
 
 

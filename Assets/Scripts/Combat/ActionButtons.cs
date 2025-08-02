@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ActionButtons : MonoBehaviour
 {
-    // Tells turnmanger player is going to use an action
+    // Tells turnmanger player is going to start an action
     public void Act()
     {
         TurnManager.instance.PlayerAction();

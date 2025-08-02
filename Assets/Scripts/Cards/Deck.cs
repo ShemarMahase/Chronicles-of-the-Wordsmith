@@ -45,9 +45,9 @@ public class Deck
         for (int i = tempCount; i < drawAmount; i++) 
         {
             Modifier mod = stance.GetMod();
-            Debug.Log(mod);
+            Debug.Log("Selected mod is "+mod);
             hand[i] = cards[i];
-            if (mod != null) hand[i].SetMod(mod);
+            hand[i].SetMod(mod);
         }
             currentCard += drawAmount;
 

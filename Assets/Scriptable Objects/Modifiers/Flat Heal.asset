@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18548ea4883d0c4e82abc9071b156a5, type: 3}
   m_Name: Flat Heal
   m_EditorClassIdentifier: 
+  target: 0
   value: 1
   isPercent: 0
   stat: 2
   duration: 0
   weight: 2
+  image: {fileID: 276874516970413255, guid: 9e8a67f8cdad9f74b8f75d317227bed0, type: 3}
+  ModInfo: Heals 1 HP

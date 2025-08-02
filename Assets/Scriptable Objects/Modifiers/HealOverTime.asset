@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18548ea4883d0c4e82abc9071b156a5, type: 3}
   m_Name: HealOverTime
   m_EditorClassIdentifier: 
+  target: 0
   value: 1
   isPercent: 0
   stat: 2
   duration: 3
   weight: 6
+  image: {fileID: -2091307342839835472, guid: b2a4d35592cb34445b872e3cf770098b, type: 3}
+  ModInfo: Heals 1 HP every turn for 3 Turns

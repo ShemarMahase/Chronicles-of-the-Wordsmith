@@ -36,6 +36,7 @@ public class HandVisualizer : MonoBehaviour
                 TranslationCardLogic translationLogic = gameObj.GetComponent<TranslationCardLogic>();
                 if (translationLogic != null)
                 {
+                    translationLogic.mod = card.mod;
                     translationLogic.uiController = translationUIController;
                     translationLogic.setCard(card);
                     translationLogic.onCardSelected = OnCardSelected;
@@ -66,6 +67,11 @@ public class HandVisualizer : MonoBehaviour
                 if (card.mod.GetSprite()) mod.sprite = card.mod.GetSprite();
                 ModifierController modifierController = gameObj.GetComponent<ModifierController>();
                 modifierController.SetMod(card.mod);
+            }
+            else
+            {
+                GameObject buffIcon = gameObj.transform.Find("Buff Icon").gameObject;
+                buffIcon.SetActive(false);
             }
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(cardArea);

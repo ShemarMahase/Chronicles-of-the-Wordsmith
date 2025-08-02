@@ -20,9 +20,10 @@ public class StatSheet : ScriptableObject
     }
 
     // Clears Stance
-    public void ClearStance()
+    public void Clear()
     {
-        stance = null;
+        stats.Clear();
+        InitializeStats();
     }
     //Sets active stance, no stance is default of 0 values
     public void SetStance(Stance stance)

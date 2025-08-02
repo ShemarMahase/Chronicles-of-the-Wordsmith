@@ -14,6 +14,14 @@ public abstract class Modifier : ScriptableObject
         Scry,
         ExtraTurn
     }
+
+    public enum EffectTarget
+    {
+        Self,
+        Enemy,
+        Both // For effects that could go either way
+    }
+    [SerializeField] protected EffectTarget target; //target of this Modifier
     [SerializeField] protected int value; // value of the modifier, (how much DOT damage, damage increase,number of cards scryed, etc)
     [SerializeField] protected bool isPercent; // Is the value a flat number or percentage
     [SerializeField] protected TurnManager.Stat stat; //The modifier this uses
@@ -33,4 +41,8 @@ public abstract class Modifier : ScriptableObject
 
     public Sprite GetSprite() { return  image; }
     public string GetInfo() {  return ModInfo; }
+    public TurnManager.Stat GetStat() {return stat ;}
+    public int GetValue() { return value; }
+    public bool IsPercent() { return isPercent; }
+    public EffectTarget GetTarget() { return target; }
 }

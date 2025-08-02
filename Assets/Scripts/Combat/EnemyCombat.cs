@@ -28,6 +28,7 @@ public class EnemyCombat : Combat
 
     void PlayTurn(object sender, EventArgs e)
     {
+        TriggerEffectTicks();
         StartCoroutine(AttackAnimation());
     }
 

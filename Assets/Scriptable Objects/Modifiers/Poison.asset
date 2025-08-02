@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc130019bf5dbb47b4a437acf46b604, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
-  value: -1
+  target: 1
+  value: 1
   isPercent: 0
   stat: 2
   duration: 3
-  weight: 4
+  weight: 23
+  image: {fileID: 7873576020987583148, guid: 16a2e67e47094f646a0d720f9ede967a, type: 3}
+  ModInfo: Inflicts poison that does 1 damage every turn for 3 Turns
+  defenseIgnore: 1

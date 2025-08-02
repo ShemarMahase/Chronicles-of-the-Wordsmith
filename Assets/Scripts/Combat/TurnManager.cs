@@ -2,6 +2,7 @@ using Mono.Cecil;
 using NUnit.Framework.Constraints;
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +14,13 @@ public class TurnManager : MonoBehaviour
     //Events
     public static event EventHandler playerTurn;
     public static event System.Action<bool> playerAttack;
-    public static event System.Action<Combat, float> defend;
+    public static event System.Action<Combat, float,Modifier> defend;
     public static event EventHandler enemyTurn;
     public static event EventHandler initializeSelf;
     public static event System.Action initiateShuffle;
     public static event System.Action<Stance> setStance;
+    public static event System.Action triggerPlayerEffects;
+    public static event System.Action<Modifier> setPlayerMod;
 
     private bool[] checks = { false, false };
     Combat player;
@@ -36,6 +39,7 @@ public class TurnManager : MonoBehaviour
     public Button Shuffle;
     public Button Item;
     public RectTransform TranslationGame;
+
     private void Awake()
     {
         if (instance == null)
@@ -59,12 +63,12 @@ public class TurnManager : MonoBehaviour
 
     }
     //takes in an Attacker and damage amount and tries to launch an attack towards opposing force
-    public void LaunchAttack(Combat attacker, float damage)
+    public void LaunchAttack(Combat attacker, float damage, Modifier mod)
     {
         Combat target;
         if (attacker.GetName() == "Player") target = enemy;
         else target = player;
-        defend?.Invoke(target, damage);
+        defend?.Invoke(target, damage,mod);
     }
     //Adds combatant to turnmanager for easy reference
     public void AddCombatant(Combat combatant)
@@ -104,6 +108,7 @@ public class TurnManager : MonoBehaviour
         {
             resetChecks();
             Debug.Log("player turn");
+            triggerPlayerEffects?.Invoke();
             UIManager.instance.EnableActionUI();
             yield return WaitForChecks();
             resetChecks();
@@ -150,5 +155,10 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("Setting stance");
         setStance?.Invoke(stance);
+    }
+
+    public void SetMod(Modifier mod)
+    {
+       setPlayerMod?.Invoke(mod);
     }
 }

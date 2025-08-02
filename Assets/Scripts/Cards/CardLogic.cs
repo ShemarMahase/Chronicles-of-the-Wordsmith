@@ -5,6 +5,7 @@ public class CardLogic : MonoBehaviour
 {
     protected Card card;
     public TextMeshProUGUI cardText;
+    public Modifier mod;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

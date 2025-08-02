@@ -8,8 +8,9 @@ using UnityEngine.UI;
 
 public abstract class Combat : MonoBehaviour
 {
-    [SerializeField] protected StatSheet stats;
+    [SerializeField] public StatSheet stats;
     [SerializeField] protected StatSheet modifiedStats;
+    protected Modifier pendingMod;
     string Combatname;
     protected Animator anim;
 
@@ -29,6 +30,11 @@ public abstract class Combat : MonoBehaviour
             effect = mod;
             duration = mod.GetDuration();
         }
+
+        public void decreaseDuration(int i)
+        {
+            duration -= i;
+        }
     }
 
     public List<ActiveEffect> activeEffects = new List<ActiveEffect>();
@@ -45,7 +51,7 @@ public abstract class Combat : MonoBehaviour
         }
         anim = GetComponent<Animator>();
     }
-    
+
     //Updates player health bar
     public void UpdatePlayerHealth(float newHealth)
     {
@@ -66,7 +72,7 @@ public abstract class Combat : MonoBehaviour
     //Sends attack to the turnManager
     public void Attack(Combat self, float dmg)
     {
-        TurnManager.instance.LaunchAttack(self, dmg);
+        TurnManager.instance.LaunchAttack(self, dmg, pendingMod);
     }
     //sends self to turnManager to keep track of combatants
     public void SendSelf(Combat self)
@@ -78,11 +84,6 @@ public abstract class Combat : MonoBehaviour
     public void setCheck(Combat self, bool check)
     {
         TurnManager.instance.setCheck(self, check);
-    }
-    //triggers all active effects on Combatant
-    public void TriggerEffects()
-    {
-        for (int i = 0; i < activeEffects.Count; i++) activeEffects[i].effect.onTick(this);
     }
     //Moves Combatant from start position to end position
     public IEnumerator Move(Vector2 start, Vector2 end)
@@ -98,27 +99,26 @@ public abstract class Combat : MonoBehaviour
         }
         anim.SetBool("isMoving", false);
     }
-    //Called when turn Manager sends damage. Decreases health, and damage effect
-    public void Defend(Combat attacker, float damage)
+    //Called when turn Manager sends damage. Decreases health based on defence, and damage effect
+    public void Defend(Combat attacker, float damage, Modifier mod)
     {
         Debug.Log("Attacker is " + attacker.GetName());
         if (attacker.GetName() == GetName())
         {
             anim.SetTrigger("Hurt");
-            float health = stats.GetStat(TurnManager.Stat.Health);
-            float defense = stats.GetStat(TurnManager.Stat.Defense);
-            float damageTaken = Math.Max(0f,damage - defense);
-            Debug.Log(damage + " incoming. Blocking with " + defense);
-            health -= damageTaken;
-            
-            stats.SetStat(TurnManager.Stat.Health, (int)health);
 
-            if (playerHealthBar != null && GetName() == "Player") 
-            {
-                UpdatePlayerHealth(health);
-            }
+            //calculate how much damage is taken
+            TakeDmg(damage);
 
-            // Spawn damage number
+            //applies any mods if present
+            if (mod) mod?.onApply(this);
+            TurnManager.instance.setCheck(this, true);
+        }
+    }
+
+    //Visual Effect for damage
+    public void SpawnDamageNum(float damageTaken)
+    {
         if (damageNumberPrefab != null)
         {
             // Randomize position of damage number
@@ -134,12 +134,68 @@ public abstract class Combat : MonoBehaviour
             DamageNumber dmgNumScript = dmgNumObj.GetComponent<DamageNumber>();
             dmgNumScript.SetDamage(damageTaken);
         }
+    }
 
-            if (health <= 0) Debug.Log("I the Enemy, am dead.");
-            else Debug.Log("Me the Enemy took " + (damage - defense) + " damage, and now have " + health + " health left");
+    // Defaults stat values to 0 and adds up any buffs/debuffs, adding it to the modified stats Sheet
+    public void RecalculateEffects()
+    {
+        modifiedStats.Clear();
+        for (int i = 0; i < activeEffects.Count; i++)
+        {
+            Modifier effect = activeEffects[i].effect;
+            float stat = modifiedStats.GetStat(effect.GetStat()); //gets current tally for selected stat
+            if (effect.IsPercent()) stat += (effect.GetValue() * stats.GetStat(effect.GetStat())); //if percentage buff multiply by value
+            else stat += effect.GetValue(); // otherwise just add it directly
+            modifiedStats.SetStat(effect.GetStat(), (int)stat); //add new calculation back to statSheet
+        }
+    }
+    //Trigger every active effect
+    public void TriggerEffectTicks()
+    {
+        for (int i = 0; i < activeEffects.Count; i++)
+        {
+            activeEffects[i].effect.onTick(this);
+            activeEffects[i].decreaseDuration(-1);
+            if (activeEffects[i].duration <= 0)
+            {
+                activeEffects[i].effect.onRemove(this);
+                activeEffects.RemoveAt(i);
+                RecalculateEffects();
+            }
 
-            TurnManager.instance.setCheck(this, true);
         }
     }
 
+    //Deals Damage to Combatant depending on if damage defense ignoring or not
+    public void TakeDmg(float dmg, bool ignoreDefence = false)
+    {
+        float damageTaken = dmg;
+        if (!ignoreDefence)
+        {
+            float defense = stats.GetStat(TurnManager.Stat.Defense);
+            damageTaken = Math.Max(0f, dmg - defense);
+        }
+        SetHealth(damageTaken);
+    }
+
+    //Modifies health, if Combatant is at 0 or less hp trigger battle end
+    public void SetHealth(float dmg)
+    {
+        float health = stats.GetStat(TurnManager.Stat.Health);
+        Debug.Log("taking " + dmg + " damage");
+        health -= dmg;
+        Debug.Log("Health is now " + health + " HP");
+        SpawnDamageNum(dmg);
+        if (health <= 0f)
+        {
+            Debug.Log("Player lost battle");
+            return;
+        }
+        stats.SetStat(TurnManager.Stat.Health, (int)health);
+        if (playerHealthBar != null && GetName() == "Player")
+        {
+            Debug.Log("updating health");
+            UpdatePlayerHealth(health);
+        }
+    }
 }
