@@ -15,5 +15,7 @@ MonoBehaviour:
   type: 0
   text: Por Favor
   mod: {fileID: 0}
+  audioName: Por_Favor
+  audioClip: {fileID: 8300000, guid: 294e6f37d81c52240ab97657c9e066b4, type: 3}
   correctTranslation: Please
   answer: Please

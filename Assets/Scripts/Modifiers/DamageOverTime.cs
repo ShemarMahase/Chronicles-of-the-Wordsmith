@@ -19,7 +19,6 @@ public class DamageOverTime : Modifier
     {
         float damageTaken = value;
         if (isPercent) damageTaken = combatant.stats.GetStat(stat) * (1/value);
-        combatant.TakeDmg(damageTaken, defenseIgnore);
-
+        combatant.StartCoroutine(combatant.TakeDmg(damageTaken, defenseIgnore));
     }
 }

@@ -28,8 +28,22 @@ public class EnemyCombat : Combat
 
     void PlayTurn(object sender, EventArgs e)
     {
-        TriggerEffectTicks();
-        StartCoroutine(AttackAnimation());
+        StartCoroutine(EnemyAttackSequence());
+    }
+
+    IEnumerator EnemyAttackSequence()
+    {
+        yield return StartCoroutine(TriggerEffectTicks());
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(StartParry());
+        Debug.Log("Starting attack animation");
+        yield return StartCoroutine(AttackAnimation());
+    }
+
+    IEnumerator StartParry()
+    {
+
+        yield return null;
     }
 
     void DealDamage()

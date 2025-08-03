@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2204fb97b53104148840aa9c09390e35, type: 3}
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
-  baseHealth: 5
+  stance: {fileID: 0}
+  baseHealth: 20
   baseAttack: 2
   baseDefense: 1

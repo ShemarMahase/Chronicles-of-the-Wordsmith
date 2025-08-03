@@ -100,20 +100,27 @@ public abstract class Combat : MonoBehaviour
         anim.SetBool("isMoving", false);
     }
     //Called when turn Manager sends damage. Decreases health based on defence, and damage effect
-    public void Defend(Combat attacker, float damage, Modifier mod)
+    public void Defend(Combat target, float damage, Modifier mod)
     {
-        Debug.Log("Attacker is " + attacker.GetName());
-        if (attacker.GetName() == GetName())
+        Debug.Log("Target of this attack is " + target.GetName());
+        if (target.GetName() == GetName())
         {
-            anim.SetTrigger("Hurt");
-
-            //calculate how much damage is taken
-            TakeDmg(damage);
-
-            //applies any mods if present
-            if (mod) mod?.onApply(this);
-            TurnManager.instance.setCheck(this, true);
+            StartCoroutine(DefendSequence(damage,mod));
         }
+    }
+
+    IEnumerator DefendSequence(float damage, Modifier mod)
+    {
+        //anim.SetTrigger("Hurt");
+
+        //calculate how much damage is taken
+        yield return TakeDmg(damage);
+
+
+        //applies any mods if present
+        if (mod) mod?.onApply(this);
+        TurnManager.instance.setCheck(this, true);
+        yield return null;
     }
 
     //Visual Effect for damage
@@ -150,13 +157,17 @@ public abstract class Combat : MonoBehaviour
         }
     }
     //Trigger every active effect
-    public void TriggerEffectTicks()
+    public IEnumerator TriggerEffectTicks()
     {
-        for (int i = 0; i < activeEffects.Count; i++)
+        for (int i = activeEffects.Count - 1; i >= 0; i--)
         {
-            activeEffects[i].effect.onTick(this);
-            activeEffects[i].decreaseDuration(-1);
-            if (activeEffects[i].duration <= 0)
+            var effect = activeEffects[i];
+            effect.effect.onTick(this);
+            yield return new WaitForSeconds(.1f);
+            effect.duration -= 1;
+            activeEffects[i] = effect;
+            Debug.Log("effect is " + activeEffects[i].effect.name + " it has " + activeEffects[i].duration + " duration left");
+            if (effect.duration <= 0)
             {
                 activeEffects[i].effect.onRemove(this);
                 activeEffects.RemoveAt(i);
@@ -167,7 +178,7 @@ public abstract class Combat : MonoBehaviour
     }
 
     //Deals Damage to Combatant depending on if damage defense ignoring or not
-    public void TakeDmg(float dmg, bool ignoreDefence = false)
+    public IEnumerator TakeDmg(float dmg, bool ignoreDefence = false)
     {
         float damageTaken = dmg;
         if (!ignoreDefence)
@@ -175,23 +186,26 @@ public abstract class Combat : MonoBehaviour
             float defense = stats.GetStat(TurnManager.Stat.Defense);
             damageTaken = Math.Max(0f, dmg - defense);
         }
-        SetHealth(damageTaken);
+        yield return SetHealth(damageTaken);
     }
 
     //Modifies health, if Combatant is at 0 or less hp trigger battle end
-    public void SetHealth(float dmg)
+    public IEnumerator SetHealth(float dmg)
     {
         float health = stats.GetStat(TurnManager.Stat.Health);
         Debug.Log("taking " + dmg + " damage");
         health -= dmg;
         Debug.Log("Health is now " + health + " HP");
-        SpawnDamageNum(dmg);
         if (health <= 0f)
         {
             Debug.Log("Player lost battle");
-            return;
+            yield break;
         }
         stats.SetStat(TurnManager.Stat.Health, (int)health);
+        anim.SetTrigger("Hurt");
+        Debug.Log("should be triggering hurt");
+        yield return new WaitForSeconds(.1f);
+        SpawnDamageNum(dmg);
         if (playerHealthBar != null && GetName() == "Player")
         {
             Debug.Log("updating health");

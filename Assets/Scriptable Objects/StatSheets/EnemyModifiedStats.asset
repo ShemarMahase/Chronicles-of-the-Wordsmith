@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105483efa2e42dc4993574dd2023d014, type: 3}
-  m_Name: Agua
+  m_Script: {fileID: 11500000, guid: 2204fb97b53104148840aa9c09390e35, type: 3}
+  m_Name: EnemyModifiedStats
   m_EditorClassIdentifier: 
-  type: 0
-  text: Agua
-  mod: {fileID: 0}
-  audioName: Agua
-  audioClip: {fileID: 8300000, guid: 39071b5161a624e4f93bd7a34e41f9b7, type: 3}
-  correctTranslation: Water
-  answer: Water
+  stance: {fileID: 0}
+  baseHealth: 0
+  baseAttack: 0
+  baseDefense: 0

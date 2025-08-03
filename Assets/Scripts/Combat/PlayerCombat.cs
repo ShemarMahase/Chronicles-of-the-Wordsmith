@@ -24,7 +24,7 @@ public class PlayerCombat : Combat
         TurnManager.playerAttack += LaunchAttack;
         TurnManager.initiateShuffle += ChangeStance;
         TurnManager.setStance += SetStance;
-        TurnManager.triggerPlayerEffects += TriggerEffectTicks;
+        TurnManager.triggerPlayerEffects += TriggerPlayerEffects;
         TurnManager.setPlayerMod += SetMod;
         startPos = new Vector2(-6.36f, -.29f);
         StrikePos = new Vector2(5.09f, -.29f);
@@ -35,6 +35,10 @@ public class PlayerCombat : Combat
     {
         fullDamage = complete;
         StartCoroutine(AttackAnimation());
+    }
+    private void TriggerPlayerEffects()
+    {
+        StartCoroutine(TriggerEffectTicks());
     }
     //Controls walk to enemy, attacking, and walking back
     IEnumerator AttackAnimation()

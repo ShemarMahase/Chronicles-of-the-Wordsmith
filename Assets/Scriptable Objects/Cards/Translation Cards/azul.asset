@@ -15,5 +15,7 @@ MonoBehaviour:
   type: 0
   text: Azul
   mod: {fileID: 0}
+  audioName: Azul
+  audioClip: {fileID: 8300000, guid: 3bafa81e90b6b76409d52b2983b13491, type: 3}
   correctTranslation: Blue
   answer: Blue

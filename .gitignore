@@ -59,3 +59,7 @@ Anaconda3/
 AppData/
 
 .vs/
+
+# Ignore Google Text to Speech Key
+Assets/Scriptable Objects/GTTSKey.asset
+Assets/Scriptable Objects/GTTSKey.asset.meta
