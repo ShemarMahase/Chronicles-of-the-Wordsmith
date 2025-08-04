@@ -20,7 +20,7 @@ public class MultipleChoiceController : MonoBehaviour
         query.text = card.text;
     }
 
-    IEnumerator StartMultipleChoice()
+    public IEnumerator StartMultipleChoice()
     {
         isDone = false;
         currentTime = 0;

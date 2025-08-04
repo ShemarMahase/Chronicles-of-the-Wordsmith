@@ -22,7 +22,8 @@ public class CardManager: MonoBehaviour
     //Lets the player retrieve current cards
     public List<Card> GetPlayerCards()
     {
-        return PlayerDeck;
+        //return PlayerDeck;
+        return CardCollection;
     }
 
     public List<Card> GetStanceCards()

@@ -456,10 +456,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   translationUIController: {fileID: 0}
-  multipleChoiceController: {fileID: 0}
+  multipleChoiceController: {fileID: 1586540554}
   TranslationCard: {fileID: 3159551177168397305, guid: fcff4a15f5b6ff744acaecbe04ac558c, type: 3}
   MatchingCard: {fileID: 0}
-  MultipleChoiceCard: {fileID: 0}
+  MultipleChoiceCard: {fileID: 4115430244599119493, guid: 6af1508f49c95124f9211ae6c156706b, type: 3}
   StanceCard: {fileID: 6462833223297360951, guid: aa5f3ce4eaf856f4c9b6b974cde3b4a1, type: 3}
   cardArea: {fileID: 731427734}
 --- !u!95 &263152070
@@ -6629,6 +6629,74 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: CardCollection.Array.size
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[10]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[11]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[12]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[13]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[14]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[15]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[16]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[17]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[18]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[19]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
+    - target: {fileID: 8181587798461350925, guid: f8ad944b54c8ba741b47b6bf80bd745e, type: 3}
+      propertyPath: 'CardCollection.Array.data[20]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bf8adc6ec6a302d4f94efc69e1784cb6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -25,6 +25,11 @@ public class HandVisualizer : MonoBehaviour
 
         }
     }
+
+    void Start()
+    {
+        UIManager.instance.onCardSelected = OnCardSelected;
+    }
     //Matches incoming card and instantiates the corresponding prefab
     private void CreateCard(Card card)
     {
@@ -45,8 +50,9 @@ public class HandVisualizer : MonoBehaviour
                 break;
             case Card.cardType.MultipleChoice:
                 gameObj = Instantiate(MultipleChoiceCard, cardArea);
-                multipleChoiceController.SetCard(card);
-                UIManager.instance.EnableMultipleChoice();
+                MultipleChoiceLogic cardLogic = gameObj.GetComponent<MultipleChoiceLogic>();
+                cardLogic.SetCard(card);
+                cardLogic.SetController(multipleChoiceController);
                 break;
             case Card.cardType.Matching:
                 gameObj = Instantiate(MatchingCard, cardArea);
@@ -57,7 +63,6 @@ public class HandVisualizer : MonoBehaviour
                 sc.SetStance(card as Stance);
                 Debug.Log("Stance set to " + (card as Stance).text);
                 gameObj.gameObject.GetComponent<Image>().sprite = (card as Stance).GetImage();
-                UIManager.instance.onCardSelected = OnCardSelected;
                 break;
         }
 
