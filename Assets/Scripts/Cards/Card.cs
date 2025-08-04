@@ -22,13 +22,6 @@ public abstract class Card : ScriptableObject
     public string audioName; //If this card has audio, what name does it have as a file
     public AudioClip audioClip; // The Audio associated with the card
 
-    [SerializeField]
-    private string correctTranslation;
-
-    public string GetCorrectTranslation()
-    {
-        return correctTranslation;
-    }
 
     public void SetMod(Modifier modifier)
     {

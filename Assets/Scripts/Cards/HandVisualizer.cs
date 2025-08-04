@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 public class HandVisualizer : MonoBehaviour
 {
     public TranslationInputUIController translationUIController;
+    public MultipleChoiceController multipleChoiceController;
     public GameObject TranslationCard;
     public GameObject MatchingCard;
     public GameObject MultipleChoiceCard;
@@ -44,6 +45,8 @@ public class HandVisualizer : MonoBehaviour
                 break;
             case Card.cardType.MultipleChoice:
                 gameObj = Instantiate(MultipleChoiceCard, cardArea);
+                multipleChoiceController.SetCard(card);
+                UIManager.instance.EnableMultipleChoice();
                 break;
             case Card.cardType.Matching:
                 gameObj = Instantiate(MatchingCard, cardArea);

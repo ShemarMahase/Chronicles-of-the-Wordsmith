@@ -8,5 +8,5 @@ public class MultipleChoice : Card
         this.type = Card.cardType.MultipleChoice;
     }
     public string[] choices;
-    public string answer;
+    public int answerIDX;
 }

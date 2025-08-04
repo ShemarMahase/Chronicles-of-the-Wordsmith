@@ -6,8 +6,8 @@ public class FuzzyString
     //Gets a score based on the similarity of two strings
     public float GetFuzzyCost(string s1, string s2)
     {
-        s1 = s1.Normalize(System.Text.NormalizationForm.FormC);
-        s2 = s2.Normalize(System.Text.NormalizationForm.FormC);
+        s1 = s1.Normalize(System.Text.NormalizationForm.FormC).ToLower();
+        s2 = s2.Normalize(System.Text.NormalizationForm.FormC).ToLower();
         float[,] matrix = new float[s1.Length + 1, s2.Length + 1];
         for (int i = 0; i <= s1.Length; i++)
         {

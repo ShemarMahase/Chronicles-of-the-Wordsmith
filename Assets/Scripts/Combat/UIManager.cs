@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public Action onCardSelected;
     public GameObject infoText;
     public GameObject ListeningTask;
+    public GameObject MultipleChoice;
     private void Awake()
     {
         if (instance == null)
@@ -64,6 +65,16 @@ public class UIManager : MonoBehaviour
     public void DisableListenTask()
     {
         ListeningTask.SetActive(false);
+    }
+
+    public void EnableMultipleChoice()
+    {
+        MultipleChoice.gameObject.SetActive(true);
+    }
+
+    public void DisableMultipleChoice()
+    {
+       MultipleChoice.gameObject.SetActive(false);
     }
 
     public TranslationInputUIController GetTranslationGame()

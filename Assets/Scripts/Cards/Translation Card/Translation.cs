@@ -7,5 +7,10 @@ public class Translation : Card
     {
         this.type = Card.cardType.Translation;
     }
-    public string answer;
+    public string correctTranslation;
+
+    public string GetCorrectTranslation()
+    {
+        return correctTranslation;
+    }
 }

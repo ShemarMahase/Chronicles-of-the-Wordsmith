@@ -62,7 +62,8 @@ public class EnemyCombat : Combat
         LP.SetCard(cards[rand]);
         attackTime = cards[rand].audioClip.length + 2f;
         yield return StartCoroutine(LP.StartTyping(attackTime));
-        
+        damageReduction = LP.GetDamageReduction();
+        UIManager.instance.DisableListenTask();
     }
 
     void DealDamage()

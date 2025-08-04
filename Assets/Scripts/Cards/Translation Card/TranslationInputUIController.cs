@@ -10,7 +10,7 @@ public class TranslationInputUIController : MonoBehaviour
     public GameObject resultPanel;
     public TextMeshProUGUI resultText;
 
-    private Card currentCard;
+    private Translation currentCard;
     private float timeLeft = 10f;
     private bool timerRunning = false;
     private bool isComplete = false;
@@ -48,7 +48,7 @@ public class TranslationInputUIController : MonoBehaviour
         resultPanel.SetActive(false);
 
         //initialize Minigame visuals and timer
-        currentCard = card;
+        currentCard = (card as Translation);
         cardText.text = card.text;
         inputField.text = "";
         resultPanel.SetActive(false);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,20 +11,20 @@ public class ListeningParry : MonoBehaviour
     FuzzyString fuzzy = new FuzzyString();
     float maxDamageReduction = .5f;
     bool isDone = false;
+    float damageReduction = .5f;
     // Allows player to start typing for an allotted time
     public IEnumerator StartTyping(float timeLimit)
     {
         isDone = false;
         currentTime = 0;
         text.text = "";
-        while (currentTime < timeLimit || !isDone)
+        while (currentTime < timeLimit && !isDone)
         {
             CheckCharacters();
             yield return null;
             currentTime += Time.deltaTime;
         }
         ValidateAnswer();
-        UIManager.instance.DisableListenTask();
     }
     //Iterates through each character typed in a frame and updates the on screen text
     private void CheckCharacters()
@@ -52,8 +53,11 @@ public class ListeningParry : MonoBehaviour
     {
         float score = fuzzy.GetFuzzyCost(text.text, card.text);
         int max = Mathf.Max(text.text.Length, card.text.Length);
-        float  damageReduction = ((max - score) / max) * maxDamageReduction;
+        damageReduction = ((max - score) / max) * maxDamageReduction;
+        Debug.Log("Damage reduction is " + damageReduction);
         isDone = true;
     }
     public void SetCard(Card card) { this.card = card; }
+
+    public float GetDamageReduction() { return damageReduction; }
 }
