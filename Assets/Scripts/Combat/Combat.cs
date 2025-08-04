@@ -86,10 +86,10 @@ public abstract class Combat : MonoBehaviour
         TurnManager.instance.setCheck(self, check);
     }
     //Moves Combatant from start position to end position
-    public IEnumerator Move(Vector2 start, Vector2 end)
+    public IEnumerator Move(Vector2 start, Vector2 end, float moveTime)
     {
         anim.SetBool("isMoving", true);
-        float totalMovementTime = 1.5f;
+        float totalMovementTime = moveTime;
         float currentTime = 0;
         while (Vector2.Distance(transform.position, end) > 0)
         {

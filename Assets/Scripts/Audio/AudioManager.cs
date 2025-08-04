@@ -8,12 +8,20 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void PlayAudio(AudioClip audio)
     {
-        audioSource.clip = audio;
-        audioSource.Play();
+        audioSource.PlayOneShot(audio);
     }
 
     public void PauseAudio()

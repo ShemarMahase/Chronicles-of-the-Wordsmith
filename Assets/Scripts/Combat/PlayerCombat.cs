@@ -45,11 +45,11 @@ public class PlayerCombat : Combat
     {
         anim.SetFloat("moveX", 1);
         anim.SetFloat("moveY", 0);
-        yield return Move(startPos, StrikePos);
+        yield return Move(startPos, StrikePos, 1.5f);
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
         anim.SetFloat("moveX", -1);
-        yield return Move(StrikePos, startPos);
+        yield return Move(StrikePos, startPos, 1.5f);
         anim.SetFloat("moveX", 0);
         anim.SetFloat("moveY", -1);
         Debug.Log("Player is Ready");

@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public RectTransform TranslationGame;
     public Action onCardSelected;
     public GameObject infoText;
+    public GameObject ListeningTask;
     private void Awake()
     {
         if (instance == null)
@@ -53,6 +54,16 @@ public class UIManager : MonoBehaviour
     public void DisableCards()
     {
         onCardSelected?.Invoke();
+    }
+
+    public void EnablistenTask()
+    {
+        ListeningTask.SetActive(true);
+    }
+
+    public void DisableListenTask()
+    {
+        ListeningTask.SetActive(false);
     }
 
     public TranslationInputUIController GetTranslationGame()

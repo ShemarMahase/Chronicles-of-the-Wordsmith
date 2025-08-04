@@ -20,7 +20,7 @@ public abstract class Card : ScriptableObject
     //public string[] answers; //Every card will have an "expected answer", multiple choice will have multiple options, answers[0] will always be the correct answer
     public Modifier mod; //the mod this card has, if any
     public string audioName; //If this card has audio, what name does it have as a file
-    public AudioClip audioClip;
+    public AudioClip audioClip; // The Audio associated with the card
 
     [SerializeField]
     private string correctTranslation;

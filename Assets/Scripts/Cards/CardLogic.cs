@@ -18,9 +18,14 @@ public class CardLogic : MonoBehaviour
 
     }
     //attaches card to script and changes card data
-    public virtual void setCard(Card cardData)
+    public virtual void SetCard(Card cardData)
     {
         card = cardData;
         cardText.text = card.text;
+    }
+
+    public void playAudio()
+    {
+        AudioManager.instance.PlayAudio(card.audioClip);
     }
 }

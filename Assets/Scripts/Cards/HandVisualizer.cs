@@ -38,7 +38,7 @@ public class HandVisualizer : MonoBehaviour
                 {
                     translationLogic.mod = card.mod;
                     translationLogic.uiController = translationUIController;
-                    translationLogic.setCard(card);
+                    translationLogic.SetCard(card);
                     translationLogic.onCardSelected = OnCardSelected;
                 }
                 break;
