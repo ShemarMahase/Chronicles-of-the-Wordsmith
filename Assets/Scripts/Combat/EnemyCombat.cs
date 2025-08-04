@@ -10,6 +10,7 @@ public class EnemyCombat : Combat
     List<Card> cards = new List<Card>();
     ListeningParry LP;
     float attackTime = 3f;
+    float damageReduction;
     void Awake()
     {
         TurnManager.initializeSelf += InitializeSelf;
@@ -58,16 +59,15 @@ public class EnemyCombat : Combat
         int rand = UnityEngine.Random.Range(0, cards.Count);
         AudioManager.instance.PlayAudio(cards[rand].audioClip);
         UIManager.instance.EnablistenTask();
-        Debug.Log(LP);
-        Debug.Log("Setting card");
         LP.SetCard(cards[rand]);
         attackTime = cards[rand].audioClip.length + 2f;
         yield return StartCoroutine(LP.StartTyping(attackTime));
+        
     }
 
     void DealDamage()
     {
-        Attack(this, stats.GetStat(TurnManager.Stat.Attack));
+        Attack(this, stats.GetStat(TurnManager.Stat.Attack) * damageReduction);
     }
 
     public IEnumerator AttackAnimation()

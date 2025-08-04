@@ -7,13 +7,16 @@ public class ListeningParry : MonoBehaviour
     public Card card;
     public TextMeshProUGUI text;
     public float currentTime = 0f;
-    // Allows player to start typing 
+    FuzzyString fuzzy = new FuzzyString();
+    float maxDamageReduction = .5f;
+    bool isDone = false;
+    // Allows player to start typing for an allotted time
     public IEnumerator StartTyping(float timeLimit)
     {
+        isDone = false;
         currentTime = 0;
         text.text = "";
-        Debug.Log("typing is starting");
-        while (currentTime < timeLimit)
+        while (currentTime < timeLimit || !isDone)
         {
             CheckCharacters();
             yield return null;
@@ -33,9 +36,10 @@ public class ListeningParry : MonoBehaviour
                 if (currentText.Length == 1) text.text = ""; 
                 if (currentText.Length > 0) text.text = currentText.Substring(0, currentText.Length - 1);
             }
-            else if ((c == '\n') || (c == '\r')) // enter/return
+            else if ((c == '\n') || (c == '\r') || text.text == card.text) // enter/return
             {
-                ValidateAnswer();
+                isDone = true;
+                break;
             }
             else
             {
@@ -43,11 +47,13 @@ public class ListeningParry : MonoBehaviour
             }
         }
     }
+    //Gets score for how close the string was and reduces damage proportional to it
     void ValidateAnswer()
     {
-        //do fuzzy string stuff
-        if (text.text.Equals(card.text)) Debug.Log("wow");
-        //UIManager.instance.DisableListenTask();
+        float score = fuzzy.GetFuzzyCost(text.text, card.text);
+        int max = Mathf.Max(text.text.Length, card.text.Length);
+        float  damageReduction = ((max - score) / max) * maxDamageReduction;
+        isDone = true;
     }
     public void SetCard(Card card) { this.card = card; }
 }
