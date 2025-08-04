@@ -87,6 +87,7 @@ public class HandVisualizer : MonoBehaviour
 
     private void ClearCards()
     {
+        Debug.Log("deleting cards");
         foreach (var cardObj in currentCards)
         {
             Destroy(cardObj);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,7 @@ public class MultipleChoiceController : MonoBehaviour
 
     public IEnumerator StartMultipleChoice()
     {
+        EnableButtons();
         isDone = false;
         currentTime = 0;
         while (currentTime < timeLimit && !isDone)
@@ -30,8 +32,10 @@ public class MultipleChoiceController : MonoBehaviour
             yield return null;
             currentTime+= Time.deltaTime;
         }
+        yield return new WaitForSeconds(1f); 
         bool isCorrect = (card.choices[card.answerIDX] == selectedAnswer);
         TurnManager.instance.TriggerPlayerAttack(true);
+        UIManager.instance.DisableMultipleChoice();
     }
 
     private void SetButtons()
@@ -60,6 +64,28 @@ public class MultipleChoiceController : MonoBehaviour
                 selectedAnswer = card.choices[3];
                 break;
         }
+        DisableButtons();
+        isDone = true;
 
+    }
+
+    private void DisableButtons()
+    {
+        for (int i = 0; i < buttonList.Count; i++)
+        {
+            if(i == card.answerIDX)
+            {
+                continue;
+            }
+            buttonList[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void EnableButtons()
+    {
+        for (int i = 0; i < buttonList.Count; i++)
+        {
+            buttonList[i].gameObject.SetActive(true);
+        }
     }
 }

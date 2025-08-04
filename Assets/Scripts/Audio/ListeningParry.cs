@@ -11,7 +11,7 @@ public class ListeningParry : MonoBehaviour
     FuzzyString fuzzy = new FuzzyString();
     float maxDamageReduction = .5f;
     bool isDone = false;
-    float damageReduction = 0f;
+    float damageTaken = 0f;
     // Allows player to start typing for an allotted time
     public IEnumerator StartTyping(float timeLimit)
     {
@@ -55,11 +55,11 @@ public class ListeningParry : MonoBehaviour
         Debug.Log("Distance score is " + score);
         int max = Mathf.Max(text.text.Length, card.text.Length);
         Debug.Log("Max length is " + max);
-        damageReduction = ((max - score) / max) * maxDamageReduction;
-        Debug.Log("Damage reduction is " + damageReduction);
+        damageTaken = (((max - score) / max) * maxDamageReduction) + maxDamageReduction;
+        Debug.Log("Damage reduction is " + damageTaken);
         isDone = true;
     }
     public void SetCard(Card card) { this.card = card; }
 
-    public float GetDamageReduction() { return damageReduction; }
+    public float GetDamageReduction() { return damageTaken; }
 }

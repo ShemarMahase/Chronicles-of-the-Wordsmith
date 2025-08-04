@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stance: {fileID: 0}
   baseHealth: 20
-  baseAttack: 2
+  baseAttack: 3
   baseDefense: 1

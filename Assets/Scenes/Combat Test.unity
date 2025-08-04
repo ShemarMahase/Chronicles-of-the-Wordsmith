@@ -1313,7 +1313,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 486908271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1586540554}
+        m_TargetAssemblyTypeName: MultipleChoiceController, Assembly-CSharp
+        m_MethodName: Onclick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &486908271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,7 +1592,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 632036309}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1586540554}
+        m_TargetAssemblyTypeName: MultipleChoiceController, Assembly-CSharp
+        m_MethodName: Onclick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &632036309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3489,7 +3513,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1240659118}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1586540554}
+        m_TargetAssemblyTypeName: MultipleChoiceController, Assembly-CSharp
+        m_MethodName: Onclick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1240659118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6076,7 +6112,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1750658055}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1586540554}
+        m_TargetAssemblyTypeName: MultipleChoiceController, Assembly-CSharp
+        m_MethodName: Onclick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1750658055
 MonoBehaviour:
   m_ObjectHideFlags: 0
