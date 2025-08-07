@@ -28,7 +28,7 @@ Unity 6, C#, Google TTS
    - you can then open the "Audio Donwloader" Scene and press play to download audio for any new cards added
 
 ## Controls
-In TestScene - use arrow keys or WASD to move around, J to interact \n
+In TestScene - use arrow keys or WASD to move around, J to interact  
 In CombatTest - use mouse to interact with buttons, and keyboard for typing minigames
 
 ## Code Highlights
