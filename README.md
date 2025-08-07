@@ -25,7 +25,7 @@ Unity 6, C#, Google TTS
 3. Open either CombatTest Scene or TestScene Scene
 4. You can press play or create new cards by Create > Scriptable Objects > Cards > [Card of your choice] and fill out the data, and then drag the new card into CardManager
 5. [Optional] for more audio, Create a new GTTSKEY scriptable object and enter in your Google TTS key.
-   - you can then open the "Audio Donwloader" key and press play to download audio for any new cards added
+   - you can then open the "Audio Donwloader" Scene and press play to download audio for any new cards added
 
 ## Controls
 In TestScene - use arrow keys or WASD to move around, J to interact
