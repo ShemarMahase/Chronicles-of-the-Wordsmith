@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public abstract class Combat : MonoBehaviour
@@ -196,16 +197,16 @@ public abstract class Combat : MonoBehaviour
         Debug.Log("taking " + dmg + " damage");
         health -= dmg;
         Debug.Log("Health is now " + health + " HP");
-        if (health <= 0f)
-        {
-            Debug.Log("Player lost battle");
-            yield break;
-        }
         stats.SetStat(TurnManager.Stat.Health, (int)health);
         anim.SetTrigger("Hurt");
         Debug.Log("should be triggering hurt");
         yield return new WaitForSeconds(.1f);
         SpawnDamageNum(dmg);
+        if (health <= 0f)
+        {
+            GameSceneManager.Instance.LoadScene(SceneNames.TESTSCENE);
+            yield break;
+        }
         if (playerHealthBar != null && GetName() == "Player")
         {
             Debug.Log("updating health");

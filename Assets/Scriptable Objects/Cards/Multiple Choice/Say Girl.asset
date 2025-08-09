@@ -9,10 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2204fb97b53104148840aa9c09390e35, type: 3}
-  m_Name: EnemyStats
+  m_Script: {fileID: 11500000, guid: 03605351f6cdb2c4291c80a2e4771aa4, type: 3}
+  m_Name: Say Girl
   m_EditorClassIdentifier: 
-  stance: {fileID: 0}
-  baseHealth: 3
-  baseAttack: 3
-  baseDefense: 1
+  type: 1
+  text: How do you say "The Girl" in spanish
+  mod: {fileID: 0}
+  audioName: 
+  audioClip: {fileID: 0}
+  choices:
+  - 
+  - 
+  - 
+  - 
+  answerIDX: 2
