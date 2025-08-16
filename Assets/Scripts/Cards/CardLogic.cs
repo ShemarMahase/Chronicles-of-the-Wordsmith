@@ -24,8 +24,8 @@ public class CardLogic : MonoBehaviour
         cardText.text = card.text;
     }
 
-    public void playAudio()
+    public void playAudio(AudioClip audio)
     {
-        AudioManager.instance.PlayAudio(card.audioClip);
+        AudioManager.instance.PlayAudio(audio);
     }
 }

@@ -9,7 +9,7 @@ public class TranslationCardLogic : CardLogic
     //Start the minigame when a card is selected
     public void OnCardClicked()
     {
-        playAudio();
+        playAudio(card.audioClips[0]);
         TurnManager.instance.SetMod(mod);
         Debug.Log("enabling");
         UIManager.instance.EnableTranslationGame();

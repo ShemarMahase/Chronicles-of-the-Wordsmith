@@ -21,33 +21,52 @@ public class AudioDownloader : MonoBehaviour
         List<Card> cardCollecton = CardManager.CardCollection;
         for (int i = 0; i < cardCollecton.Count; i++)
         {
-            string textToSpeak = cardCollecton[i].text;
-            string fileName = cardCollecton[i].audioName;
-            if (fileName != "" && !GTTS.AudioFileExists(fileName))
+            AudioClip[] audioClips = new AudioClip[cardCollecton[i].GetAudioText().Length];
+            for(int j = 0; j < audioClips.Length; j++)
             {
-                GTTS.Download(textToSpeak, fileName);
-                string audioPath = GTTS.GetLastAudioPath();
-                AttachAudio(cardCollecton[i], audioPath, "audioName");
+                string audio = cardCollecton[i].GetAudioText()[j];
+                string fileName = $"{cardCollecton[i].audioName}_audio_{j}";
+                if (fileName != "" && !GTTS.AudioFileExists(fileName))
+                {
+                    GTTS.Download(audio, fileName);
+                    string audioPath = GTTS.GetLastAudioPath();
+                    audioClips[j] = LoadAudio(audioPath);
+                }
+                else
+                {
+                    audioClips[j] = LoadAudio($"Assets/Audio/{fileName}.mp3");
+                }
             }
+            AttachAudio(cardCollecton[i], audioClips, "audioClips");
         }
     }
 
-    public void AttachAudio(ScriptableObject card,string audioPath, string fieldName)
+
+    public AudioClip LoadAudio(string fileName)
+    {
+        if (fileName.Length == 0) return null;
+        AudioClip audio = AssetDatabase.LoadAssetAtPath<AudioClip>(fileName);
+        return audio;
+    }
+
+    public void AttachAudio(ScriptableObject card,AudioClip[] audioClips, string fieldName)
     {
         #if UNITY_EDITOR
-        if (audioPath.Length == 0) return;
-        AudioClip audio = AssetDatabase.LoadAssetAtPath<AudioClip>(audioPath);
-        // This works perfectly in Play Mode in the editor
         SerializedObject serializedObject = new SerializedObject(card);
-        SerializedProperty property = serializedObject.FindProperty(fieldName);
-        property.objectReferenceValue = audio;
-        serializedObject.ApplyModifiedProperties();
+        SerializedProperty arrayProperty = serializedObject.FindProperty(fieldName);
 
-        // Mark as dirty and save - this will persist after stopping Play Mode
+        // Set the array size
+        arrayProperty.arraySize = audioClips.Length;
+
+        // Populate each element
+        for (int i = 0; i < audioClips.Length; i++)
+        {
+            arrayProperty.GetArrayElementAtIndex(i).objectReferenceValue = audioClips[i];
+        }
+
+        serializedObject.ApplyModifiedProperties();
         EditorUtility.SetDirty(card);
         AssetDatabase.SaveAssets();
-
-        Debug.Log($"Successfully attached {audio.name} to Card {card.name}");
         #endif
     }
 }

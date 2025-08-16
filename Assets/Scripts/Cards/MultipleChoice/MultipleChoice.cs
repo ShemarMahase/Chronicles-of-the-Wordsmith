@@ -9,4 +9,12 @@ public class MultipleChoice : Card
     }
     public string[] choices;
     public int answerIDX;
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < choices.Length; i++)
+        {
+            audioText[i] = choices[i];
+        }
+    }
 }

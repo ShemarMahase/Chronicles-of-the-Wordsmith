@@ -6,7 +6,11 @@ public class Matching : Card
     Matching()
     {
         this.type = Card.cardType.Matching;
-        audioText = "";
     }
     public StringStringDictionary matchingPairs = new StringStringDictionary();
+
+    private void OnEnable()
+    {
+        
+    }
 }

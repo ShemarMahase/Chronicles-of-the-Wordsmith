@@ -57,10 +57,10 @@ public class EnemyCombat : Combat
     IEnumerator StartParry()
     {
         int rand = UnityEngine.Random.Range(0, cards.Count);
-        AudioManager.instance.PlayAudio(cards[rand].audioClip);
+        AudioManager.instance.PlayAudio(cards[rand].audioClips[0]);
         UIManager.instance.EnablistenTask();
         LP.SetCard(cards[rand]);
-        attackTime = cards[rand].audioClip.length + 2f;
+        attackTime = cards[rand].audioClips[0].length + 2f;
         yield return StartCoroutine(LP.StartTyping(attackTime));
         damageReduction = LP.GetDamageReduction();
         UIManager.instance.DisableListenTask();
