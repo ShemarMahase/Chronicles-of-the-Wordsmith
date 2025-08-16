@@ -51,12 +51,14 @@ public class ListeningParry : MonoBehaviour
     //Gets score for how close the string was and reduces damage proportional to it
     void ValidateAnswer()
     {
+        Debug.Log("Distance text.text is: " + text.text);
+        Debug.Log("Distance card.text is: " + card.text);
         float score = fuzzy.GetFuzzyCost(text.text, card.text);
         Debug.Log("Distance score is " + score);
         int max = Mathf.Max(text.text.Length, card.text.Length);
         Debug.Log("Max length is " + max);
-        damageTaken = (((max - score) / max) * maxDamageReduction) + maxDamageReduction;
-        Debug.Log("Damage reduction is " + damageTaken);
+        damageTaken = ((score / max) * maxDamageReduction) + maxDamageReduction;
+        Debug.Log("Damage received mult is " + damageTaken);
         isDone = true;
     }
     public void SetCard(Card card) { this.card = card; }

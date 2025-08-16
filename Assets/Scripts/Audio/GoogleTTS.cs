@@ -12,6 +12,7 @@ public class GoogleTTS : MonoBehaviour
 {
     private string apiKey = "YOUR_API_KEY";
     public GTTSKey key;
+    private string LastAudioPath;
 
     private void Start()
     {
@@ -40,12 +41,13 @@ public class GoogleTTS : MonoBehaviour
                 byte[] audioData = Convert.FromBase64String(response.audioContent);
 
                 string path = Path.Combine(Application.dataPath, "Audio", fileName + ".mp3");
+                LastAudioPath = $"Assets/Audio/{fileName}.mp3";
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 File.WriteAllBytes(path, audioData);
 
-#if UNITY_EDITOR
+                #if UNITY_EDITOR
                 AssetDatabase.Refresh();
-#endif
+                #endif
 
                 Debug.Log($"Saved: {fileName}.mp3");
             }
@@ -56,6 +58,11 @@ public class GoogleTTS : MonoBehaviour
     {
         string path = Path.Combine(Application.dataPath, "Audio", fileName + ".mp3");
         return File.Exists(path);
+    }
+
+    public string GetLastAudioPath()
+    {
+        return LastAudioPath;
     }
 
     public void Download(string text, string fileName) => StartCoroutine(DownloadTTS(text, fileName));

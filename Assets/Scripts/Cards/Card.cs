@@ -20,6 +20,7 @@ public abstract class Card : ScriptableObject
     //public string[] answers; //Every card will have an "expected answer", multiple choice will have multiple options, answers[0] will always be the correct answer
     public Modifier mod; //the mod this card has, if any
     public string audioName; //If this card has audio, what name does it have as a file
+    protected string audioText; // Text that will be spoken with TTS
     public AudioClip audioClip; // The Audio associated with the card
 
 
@@ -27,4 +28,6 @@ public abstract class Card : ScriptableObject
     {
         mod = modifier;
     }
+
+    public string GetAudioText() { return audioText; }
 }

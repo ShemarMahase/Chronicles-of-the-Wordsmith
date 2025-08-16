@@ -8,6 +8,8 @@ public class FuzzyString
     {
         s1 = s1.Normalize(System.Text.NormalizationForm.FormC).ToLower();
         s2 = s2.Normalize(System.Text.NormalizationForm.FormC).ToLower();
+        if (s1.Length == 0) return s2.Length;
+        if (s2.Length == 0) return s1.Length;
         float[,] matrix = new float[s1.Length + 1, s2.Length + 1];
         for (int i = 0; i <= s1.Length; i++)
         {
@@ -17,7 +19,6 @@ public class FuzzyString
         {
             matrix[0, 1] = i;
         }
-
         for (int i = 1; i <= s1.Length; i++)
         {
             for (int j = 1; j <= s2.Length; j++)
