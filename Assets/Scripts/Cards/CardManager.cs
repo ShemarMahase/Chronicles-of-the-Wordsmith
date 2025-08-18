@@ -5,7 +5,7 @@ public class CardManager: MonoBehaviour
 {
     public static CardManager Instance { get; private set; }
     public List<Card> PlayerDeck { get; private set; }
-    [SerializeField] public List<Card> CardCollection;
+    [SerializeField] public AllCards CardCollection;
     [SerializeField] public List<Card> StanceCollection;
 
     //Initialize cards
@@ -13,17 +13,16 @@ public class CardManager: MonoBehaviour
     {
         Instance = this;
         PlayerDeck = new List<Card>();
-        PlayerDeck.Add(CardCollection[0]);
-        PlayerDeck.Add(CardCollection[1]);
-        PlayerDeck.Add(CardCollection[2]);
-        PlayerDeck.Add(CardCollection[3]);
-        PlayerDeck.Add(CardCollection[4]);
+        foreach(Card card in CardCollection.cards)
+        {
+            PlayerDeck.Add(card);
+        }
     }
     //Lets the player retrieve current cards
     public List<Card> GetPlayerCards()
     {
         //return PlayerDeck;
-        return CardCollection;
+        return PlayerDeck;
     }
 
     public List<Card> GetStanceCards()

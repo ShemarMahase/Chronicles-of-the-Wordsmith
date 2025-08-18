@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,18 +10,33 @@ public class CardInitializer : MonoBehaviour
     const string MultipleChoicePath = "Assets/Scriptable Objects/Cards/Multiple Choice";
     const string MatchingPath = "Assets/Scriptable Objects/Cards/Matching";
     const string StoryPath = "Assets/Scriptable Objects/Cards/Story";
-    List<Card> AllCards = new List<Card>();
-    string[] allPaths = {TranslationPath, MultipleChoicePath, MatchingPath,StoryPath};
+    string[] allPaths = { TranslationPath, MultipleChoicePath, MatchingPath, StoryPath };
+
+    [SerializeField] AllCards cardDataBase;
+    [SerializeField] AudioDownloader audioDownloader;
+
+    public void Start()
+    {
+       InitializeAllCards();
+       audioDownloader.DownloadAudios();
+    }
 
     public void InitializeAllCards()
     {
+        #if UNITY_EDITOR
         List<Card> cards;
-        AllCards.Clear();
-        foreach(string path in allPaths)
+        cardDataBase.cards.Clear();
+        foreach (string path in allPaths)
         {
             cards = GetAllCardsFromFolder(path);
-            AllCards.AddRange(cards);
+            cardDataBase.cards.AddRange(cards);
         }
+        // Mark the asset as dirty to save the changes
+        EditorUtility.SetDirty(cardDataBase);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Successfully initialized and saved all cards to the database!");
+        #endif
     }
 
     List<Card> GetAllCardsFromFolder(string folderPath)

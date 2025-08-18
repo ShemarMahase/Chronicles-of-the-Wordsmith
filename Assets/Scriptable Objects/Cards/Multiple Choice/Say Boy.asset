@@ -15,8 +15,8 @@ MonoBehaviour:
   type: 1
   text: How do you say "The Boy" in spanish?
   mod: {fileID: 0}
-  audioName: 
-  audioClip: {fileID: 0}
+  audioName: Boy in spanish
+  audioClips: []
   choices:
   - Wrong answer
   - Wrong answer 2

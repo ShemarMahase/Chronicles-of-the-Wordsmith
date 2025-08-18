@@ -15,11 +15,11 @@ MonoBehaviour:
   type: 1
   text: How do you say "The Girl" in spanish
   mod: {fileID: 0}
-  audioName: 
-  audioClip: {fileID: 0}
+  audioName: Girl in Spanish
+  audioClips: []
   choices:
-  - 
-  - 
-  - 
-  - 
+  - el nino
+  - el nina
+  - gucci gang
+  - sup fam
   answerIDX: 2

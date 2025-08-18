@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using UnityEditor.Connect;
+using System.Collections;
+
 
 
 #if UNITY_EDITOR
@@ -18,30 +20,48 @@ public class AudioDownloader : MonoBehaviour
     void Start()
     {
         GTTS = GetComponent<GoogleTTS>();
-        List<Card> cardCollecton = CardManager.CardCollection;
-        for (int i = 0; i < cardCollecton.Count; i++)
+    }
+
+    public void DownloadAudios()
+    {
+        StartCoroutine(ProcessCards());
+    }
+
+    public IEnumerator ProcessCards()
+    {
+        GTTS = GetComponent<GoogleTTS>();
+        List<Card> cardCollecton = CardManager.CardCollection.cards;
+        for (int i = 0; i < cardCollecton.Count; i++) // Loop through every card
         {
-            AudioClip[] audioClips = new AudioClip[cardCollecton[i].GetAudioText().Length];
-            for(int j = 0; j < audioClips.Length; j++)
+            AudioClip[] audioClips = new AudioClip[cardCollecton[i].GetAudioText().Length]; //get all audios in a card
+            int count = 0;
+            for (int j = 0; j < audioClips.Length; j++) //loop through those audios
             {
                 string audio = cardCollecton[i].GetAudioText()[j];
                 string fileName = $"{cardCollecton[i].audioName}_audio_{j}";
-                if (fileName != "" && !GTTS.AudioFileExists(fileName))
+                if (fileName != "" && !GTTS.AudioFileExists(fileName)) //If the audio doesnt exists then download
                 {
-                    GTTS.Download(audio, fileName);
-                    string audioPath = GTTS.GetLastAudioPath();
-                    audioClips[j] = LoadAudio(audioPath);
+                    GTTS.Download(audio, fileName, (audioPath) =>
+                    {
+                        Debug.Log(audio);
+                        Debug.Log(fileName);
+                        Debug.Log(audioPath);
+                        audioClips[j] = LoadAudio(audioPath);
+                        count++;
+                    });
                 }
                 else
                 {
                     audioClips[j] = LoadAudio($"Assets/Audio/{fileName}.mp3");
+                    count++;
                 }
             }
+            yield return new WaitUntil(() => count == audioClips.Length);
             AttachAudio(cardCollecton[i], audioClips, "audioClips");
         }
     }
 
-
+    // Converts a path to an audio to an AudioClip
     public AudioClip LoadAudio(string fileName)
     {
         if (fileName.Length == 0) return null;
@@ -49,6 +69,7 @@ public class AudioDownloader : MonoBehaviour
         return audio;
     }
 
+    //Takes an array of audioclips and attaches it to the associate scriptable object
     public void AttachAudio(ScriptableObject card,AudioClip[] audioClips, string fieldName)
     {
         #if UNITY_EDITOR

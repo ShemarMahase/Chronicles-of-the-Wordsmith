@@ -13,4 +13,10 @@ public class Translation : Card
     {
         return correctTranslation;
     }
+
+    private void OnEnable()
+    {
+        audioText = new string[1];
+        audioText[0] = text;
+    }
 }

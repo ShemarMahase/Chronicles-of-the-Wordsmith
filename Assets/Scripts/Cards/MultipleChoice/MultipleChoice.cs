@@ -12,6 +12,7 @@ public class MultipleChoice : Card
 
     private void OnEnable()
     {
+        audioText = new string[choices.Length];
         for (int i = 0; i < choices.Length; i++)
         {
             audioText[i] = choices[i];

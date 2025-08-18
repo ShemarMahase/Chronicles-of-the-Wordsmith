@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e124b7810226efe47a9672e03546023b, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
+  type: 2
   text: Colors
   mod: {fileID: 0}
+  audioName: Colors
+  audioClips: []
   matchingPairs:
     _keys:
     - Rojo
-    - 
+    - Azul
+    - Naranja
+    - Verde
     _values:
     - Red
-    - 
+    - Blue
+    - Orange
+    - Green

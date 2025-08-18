@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AllCards", menuName = "Scriptable Objects/AllCards")]
 public class AllCards : ScriptableObject
 {
-    public Card[] cards;
+    public List<Card> cards;
 }

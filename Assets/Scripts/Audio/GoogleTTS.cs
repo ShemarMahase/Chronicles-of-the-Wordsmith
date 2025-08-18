@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 using System.Text;
 using System.IO;
 using System;
+using static UnityEditor.LightingExplorerTableColumn;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -19,8 +21,9 @@ public class GoogleTTS : MonoBehaviour
         apiKey = key.m_Key;
     }
 
-    public IEnumerator DownloadTTS(string text, string fileName)
+    public IEnumerator DownloadTTS(string text, string fileName, System.Action<string> onComplete)
     {
+        Debug.Log($"Downloading {text} to {fileName}.mp3...");
         string json = $@"{{
             ""input"": {{""text"": ""{text}""}},
             ""voice"": {{""languageCode"": ""es-US"", ""name"": ""es-US-Chirp3-HD-Algenib""}},
@@ -51,7 +54,12 @@ public class GoogleTTS : MonoBehaviour
 
                 Debug.Log($"Saved: {fileName}.mp3");
             }
+            else
+            {
+                Debug.Log($"Downloading: {fileName}.mp3 Failed!");
+            }
         }
+        onComplete(LastAudioPath);
     }
 
     public bool AudioFileExists(string fileName)
@@ -65,7 +73,7 @@ public class GoogleTTS : MonoBehaviour
         return LastAudioPath;
     }
 
-    public void Download(string text, string fileName) => StartCoroutine(DownloadTTS(text, fileName));
+    public void Download(string text, string fileName, System.Action<string> onComplete) => StartCoroutine(DownloadTTS(text, fileName,onComplete));
 }
 
 [System.Serializable]

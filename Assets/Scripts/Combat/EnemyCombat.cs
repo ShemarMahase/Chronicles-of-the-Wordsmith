@@ -30,7 +30,7 @@ public class EnemyCombat : Combat
 
     private void GetAllTranslationCards()
     {
-        foreach (Card card in CardManager.Instance.CardCollection) {
+        foreach (Card card in CardManager.Instance.CardCollection.cards) {
             if (card.getCardType() == Card.cardType.Translation) cards.Add(card);
         }
     }
