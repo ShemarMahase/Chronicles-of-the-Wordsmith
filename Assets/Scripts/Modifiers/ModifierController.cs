@@ -29,6 +29,7 @@ public class ModifierController : MonoBehaviour
         {
             infoText.text = mod.GetInfo();
             infoPanel.SetActive(true);
+            infoPanel.transform.position = Input.mousePosition + new Vector3(0, 60, 0);
         }
     }
     public void OnMouseExit()
@@ -39,13 +40,9 @@ public class ModifierController : MonoBehaviour
         }
     }
 
-    // Optional: Position the tooltip near the mouse cursor
+    //Position the tooltip near the mouse cursor
     void OnMouseOver()
     {
-        if (infoPanel != null)
-        {
-            // Adjust offset as needed
-            infoPanel.transform.position = Input.mousePosition + new Vector3(20, -20, 0);
-        }
+            infoPanel.transform.position = Input.mousePosition; //+ new Vector3(20, -20, 0);
     }
 }
