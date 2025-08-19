@@ -24,11 +24,14 @@ public class GoogleTTS : MonoBehaviour
     public IEnumerator DownloadTTS(string text, string fileName, System.Action<string> onComplete)
     {
         Debug.Log($"Downloading {text} to {fileName}.mp3...");
+        Debug.Log(text);
+        Debug.Log(fileName);
         string json = $@"{{
             ""input"": {{""text"": ""{text}""}},
             ""voice"": {{""languageCode"": ""es-US"", ""name"": ""es-US-Chirp3-HD-Algenib""}},
             ""audioConfig"": {{""audioEncoding"": ""MP3""}}
         }}";
+        Debug.Log(json);
 
         using (var request = new UnityWebRequest("https://texttospeech.googleapis.com/v1/text:synthesize?key=" + apiKey, "POST"))
         {
@@ -53,13 +56,14 @@ public class GoogleTTS : MonoBehaviour
                 #endif
 
                 Debug.Log($"Saved: {fileName}.mp3");
+                onComplete(LastAudioPath);
             }
             else
             {
-                Debug.Log($"Downloading: {fileName}.mp3 Failed!");
+                Debug.LogError($"Downloading: {fileName}.mp3 Failed! Error: {request.error}");
+                onComplete(null);
             }
         }
-        onComplete(LastAudioPath);
     }
 
     public bool AudioFileExists(string fileName)

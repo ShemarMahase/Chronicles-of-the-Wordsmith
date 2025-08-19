@@ -16,6 +16,6 @@ MonoBehaviour:
   text: Agua
   mod: {fileID: 0}
   audioName: Agua
-  audioClip: {fileID: 8300000, guid: 39071b5161a624e4f93bd7a34e41f9b7, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: e39801752e558b24ca3cd98e4a6a24d6, type: 3}
   correctTranslation: Water
-  answer: Water

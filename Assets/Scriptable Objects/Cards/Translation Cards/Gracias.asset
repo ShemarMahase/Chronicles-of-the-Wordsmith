@@ -16,6 +16,6 @@ MonoBehaviour:
   text: Gracias
   mod: {fileID: 0}
   audioName: Gracias
-  audioClip: {fileID: 8300000, guid: 361c428ad33982741b0a41e8b9c4ed73, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: df4e58a2e3bd4cd4db559c2028c44d85, type: 3}
   correctTranslation: Thank You
-  answer: Thank you

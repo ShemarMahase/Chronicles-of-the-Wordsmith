@@ -16,6 +16,6 @@ MonoBehaviour:
   text: Rojo
   mod: {fileID: 0}
   audioName: Rojo
-  audioClip: {fileID: 8300000, guid: 0611a7a2050a2d74e81f96fab992772e, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: ffe55424e15e7d543a62eb678a768297, type: 3}
   correctTranslation: Red
-  answer: Red

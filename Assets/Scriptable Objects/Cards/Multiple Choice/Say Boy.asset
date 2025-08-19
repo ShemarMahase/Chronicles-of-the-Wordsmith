@@ -16,7 +16,11 @@ MonoBehaviour:
   text: How do you say "The Boy" in spanish?
   mod: {fileID: 0}
   audioName: Boy in spanish
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: d705110526a30af469f78f335787f5cd, type: 3}
+  - {fileID: 8300000, guid: ba95eb5fc3f30664cbc37caff6b10cbd, type: 3}
+  - {fileID: 8300000, guid: f9a762a29f60f674aaf6140fb9acb626, type: 3}
+  - {fileID: 8300000, guid: 8c6769b194f69c44aa83a5cc192c1129, type: 3}
   choices:
   - Wrong answer
   - Wrong answer 2

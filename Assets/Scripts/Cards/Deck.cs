@@ -51,7 +51,7 @@ public class Deck
         }
             currentCard += drawAmount;
 
-        }
+    }
     //look ahead at the next "amount" cards
     public void Scry(int amount) { }
 }

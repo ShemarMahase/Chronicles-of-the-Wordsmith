@@ -16,7 +16,11 @@ MonoBehaviour:
   text: How do you say "The Girl" in spanish
   mod: {fileID: 0}
   audioName: Girl in Spanish
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: 2b36cc6ff7bf4834a89208fa48609f47, type: 3}
+  - {fileID: 8300000, guid: 47a5b20c6902b41478bf0d7c7a1bd32b, type: 3}
+  - {fileID: 8300000, guid: 144e5f1e0be3236429fba04edfe906b5, type: 3}
+  - {fileID: 8300000, guid: 124a399b4d3870f4a99f1518f074dfbe, type: 3}
   choices:
   - el nino
   - el nina

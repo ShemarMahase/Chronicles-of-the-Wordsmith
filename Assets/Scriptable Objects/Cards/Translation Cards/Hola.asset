@@ -16,6 +16,6 @@ MonoBehaviour:
   text: Hola
   mod: {fileID: 0}
   audioName: Hola
-  audioClip: {fileID: 8300000, guid: 0ec3360efd888554da0813ff5f88270d, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: 89f76dd8e033d50438a4199b5043b642, type: 3}
   correctTranslation: Hello
-  answer: Hello

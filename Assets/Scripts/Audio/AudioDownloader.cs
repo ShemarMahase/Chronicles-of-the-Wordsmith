@@ -34,25 +34,26 @@ public class AudioDownloader : MonoBehaviour
         for (int i = 0; i < cardCollecton.Count; i++) // Loop through every card
         {
             AudioClip[] audioClips = new AudioClip[cardCollecton[i].GetAudioText().Length]; //get all audios in a card
+            Debug.Log($"total length of audioClips is {audioClips.Length}");
             int count = 0;
             for (int j = 0; j < audioClips.Length; j++) //loop through those audios
             {
+                int localj = j;
                 string audio = cardCollecton[i].GetAudioText()[j];
                 string fileName = $"{cardCollecton[i].audioName}_audio_{j}";
                 if (fileName != "" && !GTTS.AudioFileExists(fileName)) //If the audio doesnt exists then download
                 {
                     GTTS.Download(audio, fileName, (audioPath) =>
                     {
-                        Debug.Log(audio);
-                        Debug.Log(fileName);
-                        Debug.Log(audioPath);
-                        audioClips[j] = LoadAudio(audioPath);
+                        Debug.Log("Current J is: " + j);
+                        Debug.Log("audioclips.length is: "+audioClips.Length);
+                        audioClips[localj] = LoadAudio(audioPath);
                         count++;
                     });
                 }
                 else
                 {
-                    audioClips[j] = LoadAudio($"Assets/Audio/{fileName}.mp3");
+                    audioClips[localj] = LoadAudio($"Assets/Audio/{fileName}.mp3");
                     count++;
                 }
             }
