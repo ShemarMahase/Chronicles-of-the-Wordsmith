@@ -4,6 +4,7 @@ using UnityEngine;
 public class MultipleChoiceLogic : CardLogic
 {
     MultipleChoiceController Mcc;
+    //When Multiple choice card is selected, enable multiple choice mini game
     public void Onclick()
     {
         UIManager.instance.EnableMultipleChoice();

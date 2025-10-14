@@ -15,14 +15,13 @@ public class HandVisualizer : MonoBehaviour
 
     private List<GameObject> currentCards = new List<GameObject>();
 
-    //Instantiates each card
+    //Instantiates each card in player hand
     public void visualizeHand(Card[] cards, int handsize)
     {
 
         for (int i = 0; i < handsize; i++)
         {
             CreateCard(cards[i]);
-
         }
     }
 
@@ -37,10 +36,10 @@ public class HandVisualizer : MonoBehaviour
         Debug.Log(card);
         switch (card.getCardType())
         {
-            case Card.cardType.Translation:
+            case Card.cardType.Translation: //Translation card
                 gameObj = Instantiate(TranslationCard, cardArea);
-                TranslationCardLogic translationLogic = gameObj.GetComponent<TranslationCardLogic>();
-                if (translationLogic != null)
+                TranslationCardLogic translationLogic = gameObj.GetComponent<TranslationCardLogic>(); //Get the card controller
+                if (translationLogic != null) // set key properties in controller script
                 {
                     translationLogic.mod = card.mod;
                     translationLogic.uiController = translationUIController;
@@ -48,9 +47,9 @@ public class HandVisualizer : MonoBehaviour
                     translationLogic.onCardSelected = OnCardSelected;
                 }
                 break;
-            case Card.cardType.MultipleChoice:
+            case Card.cardType.MultipleChoice: //Multiple choice card
                 gameObj = Instantiate(MultipleChoiceCard, cardArea);
-                MultipleChoiceLogic cardLogic = gameObj.GetComponent<MultipleChoiceLogic>();
+                MultipleChoiceLogic cardLogic = gameObj.GetComponent<MultipleChoiceLogic>(); 
                 cardLogic.SetCard(card);
                 cardLogic.SetController(multipleChoiceController);
                 break;
@@ -65,10 +64,10 @@ public class HandVisualizer : MonoBehaviour
                 gameObj.gameObject.GetComponent<Image>().sprite = (card as Stance).GetImage();
                 break;
         }
-
+        //Adds card to stored list and updates the mod stored on the card visually
         if (gameObj != null)
         {
-            currentCards.Add(gameObj);
+            currentCards.Add(gameObj); //add gameobject to 
             if (card.mod)
             {
                 Image mod = gameObj.transform.Find("Buff Icon").GetComponent<Image>();
@@ -84,7 +83,7 @@ public class HandVisualizer : MonoBehaviour
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(cardArea);
     }
-
+    // Clear all cards from screen
     private void ClearCards()
     {
         Debug.Log("deleting cards");

@@ -20,7 +20,7 @@ public class MultipleChoiceController : MonoBehaviour
         SetButtons();
         query.text = card.text;
     }
-
+    //Waits for alloted minigame time or until answer is selected for triggering player attack
     public IEnumerator StartMultipleChoice()
     {
         EnableButtons();
@@ -28,7 +28,6 @@ public class MultipleChoiceController : MonoBehaviour
         currentTime = 0;
         while (currentTime < timeLimit && !isDone)
         {
-
             yield return null;
             currentTime+= Time.deltaTime;
         }
@@ -37,7 +36,7 @@ public class MultipleChoiceController : MonoBehaviour
         TurnManager.instance.TriggerPlayerAttack(true);
         UIManager.instance.DisableMultipleChoice();
     }
-
+    //Sets each button to have the right text
     private void SetButtons()
     {
         int i = 0;
@@ -46,29 +45,30 @@ public class MultipleChoiceController : MonoBehaviour
             i++;
         }
     }
-
+    //When button is selected set it as the buttonselected
     public void Onclick(int answer)
     {
-        switch (answer)
-        {
-            case 0:
-                selectedAnswer = card.choices[0];
-                break;
-            case 1:
-                selectedAnswer = card.choices[1];
-                break;
-            case 2:
-                selectedAnswer = card.choices[2];
-                break;
-            case 3:
-                selectedAnswer = card.choices[3];
-                break;
-        }
+        //switch (answer)
+        //{
+        //    case 0:
+        //        selectedAnswer = card.choices[0];
+        //        break;
+        //    case 1:
+        //        selectedAnswer = card.choices[1];
+        //        break;
+        //    case 2:
+        //        selectedAnswer = card.choices[2];
+        //        break;
+        //    case 3:
+        //        selectedAnswer = card.choices[3];
+        //        break;
+        //}
+        selectedAnswer = card.choices[answer];
         DisableButtons();
         isDone = true;
 
     }
-
+    //Disable all buttosn except the right one
     private void DisableButtons()
     {
         for (int i = 0; i < buttonList.Count; i++)
@@ -80,7 +80,7 @@ public class MultipleChoiceController : MonoBehaviour
             buttonList[i].gameObject.SetActive(false);
         }
     }
-
+    //When minigame is active enable all the buttons
     private void EnableButtons()
     {
         for (int i = 0; i < buttonList.Count; i++)
