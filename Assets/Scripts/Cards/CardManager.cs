@@ -4,6 +4,8 @@ using UnityEngine;
 public class CardManager: MonoBehaviour
 {
     public static CardManager Instance { get; private set; }
+
+    //Maybe make this a dictionary as cards get longer in the future
     public List<Card> PlayerDeck { get; private set; }
     [SerializeField] public AllCards CardCollection;
     [SerializeField] public List<Card> StanceCollection;

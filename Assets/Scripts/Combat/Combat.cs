@@ -14,8 +14,6 @@ public abstract class Combat : MonoBehaviour
     protected Modifier pendingMod;
     string Combatname;
     protected Animator anim;
-
-    public Slider playerHealthBar;
     public GameObject damageNumberPrefab;
     protected Vector2 startPos;
     protected Vector2 StrikePos;
@@ -44,20 +42,7 @@ public abstract class Combat : MonoBehaviour
     protected void Start()
     {
         TurnManager.defend += Defend;
-
-        if (playerHealthBar != null)
-        {
-            playerHealthBar.maxValue = stats.GetStat(TurnManager.Stat.MaxHealth);
-            playerHealthBar.value = stats.GetStat(TurnManager.Stat.Health);
-        }
         anim = GetComponent<Animator>();
-    }
-
-    //Updates player health bar
-    public void UpdatePlayerHealth(float newHealth)
-    {
-        if (playerHealthBar != null)
-            playerHealthBar.value = newHealth;
     }
     //Sets name of combatant
     public void SetName(string s)
@@ -106,7 +91,7 @@ public abstract class Combat : MonoBehaviour
         Debug.Log("Target of this attack is " + target.GetName());
         if (target.GetName() == GetName())
         {
-            StartCoroutine(DefendSequence(damage,mod));
+            StartCoroutine(DefendSequence(damage, mod));
         }
     }
 
@@ -139,6 +124,7 @@ public abstract class Combat : MonoBehaviour
             Vector3 screenPos = Camera.main.WorldToScreenPoint(spawnPos);
 
             GameObject dmgNumObj = Instantiate(damageNumberPrefab, screenPos, Quaternion.identity, FindFirstObjectByType<Canvas>().transform);
+            dmgNumObj.transform.position = this.transform.position + new Vector3(1.5f, 1f, 0f);
             DamageNumber dmgNumScript = dmgNumObj.GetComponent<DamageNumber>();
             dmgNumScript.SetDamage(damageTaken);
         }
@@ -184,8 +170,9 @@ public abstract class Combat : MonoBehaviour
         float damageTaken = dmg;
         if (!ignoreDefence)
         {
+            // Any damage above 0 is rounded to bare minimum of 1, negative or zero damage is always set to 0
             float defense = stats.GetStat(TurnManager.Stat.Defense);
-            damageTaken = Math.Max(0f, dmg - defense);
+            damageTaken = (dmg > 0) ? Mathf.Max(1, (int)(dmg-defense)) : 0;
         }
         yield return SetHealth(damageTaken);
     }
@@ -207,10 +194,8 @@ public abstract class Combat : MonoBehaviour
             GameSceneManager.Instance.LoadScene(SceneNames.TESTSCENE);
             yield break;
         }
-        if (playerHealthBar != null && GetName() == "Player")
-        {
-            Debug.Log("updating health");
-            UpdatePlayerHealth(health);
-        }
+        OnDamageTaken(health);
     }
+
+    protected virtual void OnDamageTaken(float health) { }
 }

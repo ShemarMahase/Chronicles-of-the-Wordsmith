@@ -72,8 +72,15 @@ public class MatchingController : MonoBehaviour
         this.card = (card as Matching);
     }
 
-    public void ReceiveResults(Dictionary<int,int> dict)
+    public void ReceiveResults(Dictionary<int,int> answers)
     {
+        int tally = 0;
         //Compare pairs in dict to pairs in correctpairs to get a tally of how many correct out of how many possible
+        foreach(int id in correctPairs.Keys)
+        {
+            if (answers[id] == correctPairs[id] || (id == answers[id] && correctPairs[id] == id)){
+                tally++;
+            }
+        }
     }
 }

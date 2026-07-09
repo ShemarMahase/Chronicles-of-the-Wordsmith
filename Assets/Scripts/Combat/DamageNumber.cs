@@ -3,7 +3,7 @@ using TMPro; // or UnityEngine.UI if you use Text
 
 public class DamageNumber : MonoBehaviour
 {
-    public float floatSpeed = 1f;
+    public float floatSpeed = .1f;
     public float fadeDuration = 1f;
     private TextMeshProUGUI textMesh;
     private Color originalColor;
@@ -11,6 +11,7 @@ public class DamageNumber : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Showing damage taken");
         textMesh = GetComponent<TextMeshProUGUI>();
         originalColor = textMesh.color;
         timer = 0;
@@ -19,6 +20,7 @@ public class DamageNumber : MonoBehaviour
     public void SetDamage(float dmg)
     {
         textMesh.text = dmg.ToString("0");
+        floatSpeed = .5f;
     }
 
     private void Update()

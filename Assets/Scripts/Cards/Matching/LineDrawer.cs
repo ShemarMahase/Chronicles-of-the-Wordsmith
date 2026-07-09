@@ -13,6 +13,7 @@ public class LineDrawer : MonoBehaviour
     Vector2 startPos = Vector2.zero;
     Vector2 endPos = Vector2.zero;
     Dictionary<int, int> idToLine = new Dictionary<int, int>();
+    Dictionary<int,int> idtoId = new Dictionary<int, int>();
     Queue<int> availableLines = new Queue<int>();
     public static event System.Action<Dictionary<int, int>> SubmitResults;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -75,6 +76,10 @@ public class LineDrawer : MonoBehaviour
         currentlyMatching = false;
     }
 
+    private void AddID()
+    {
+        //idtoId[]
+    }
     private void StartNewMatch(int id, Button button)
     {
         Debug.Log("Starting a new match");

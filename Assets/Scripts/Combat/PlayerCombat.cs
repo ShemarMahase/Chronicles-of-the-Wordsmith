@@ -11,6 +11,7 @@ public class PlayerCombat : Combat
     private Deck deck = new Deck();
     private Deck stances = new Deck();
     private Card[] hand = new Card[10];
+    public PlayerHealth playerHealth;
     bool fullDamage = false;
     int handSize = 3;
     [SerializeField] HandVisualizer handVisual;
@@ -26,6 +27,7 @@ public class PlayerCombat : Combat
         TurnManager.setStance += SetStance;
         TurnManager.triggerPlayerEffects += TriggerPlayerEffects;
         TurnManager.setPlayerMod += SetMod;
+        playerHealth.InitializeHealthBar(stats.GetStat(TurnManager.Stat.Health), stats.GetStat(TurnManager.Stat.MaxHealth));
         startPos = new Vector2(-6.36f, -.29f);
         StrikePos = new Vector2(5.09f, -.29f);
     }
@@ -85,6 +87,20 @@ public class PlayerCombat : Combat
         deck.getNextHand(hand, handSize, stance);
         handVisual.visualizeHand(hand, handSize);
     }
+
+    protected override void OnDamageTaken(float health)
+    {
+        Debug.Log("updating Player Health");
+        //float newHealth = Mathf.Clamp(stats.GetStat(TurnManager.Stat.Health) - dmg,0, stats.GetStat(TurnManager.Stat.MaxHealth));
+        UpdatePlayerHealth(health);
+    }
+
+    //Updates player health bar
+    public void UpdatePlayerHealth(float newHealth)
+    {
+        playerHealth.UpdatePlayerHealth(newHealth);
+    }
+
     //Changes players current stance
     public void ChangeStance()
     {

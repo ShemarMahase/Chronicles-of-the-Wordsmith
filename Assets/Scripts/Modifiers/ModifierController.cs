@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,14 +23,16 @@ public class ModifierController : MonoBehaviour
         }
 
     }
-
+    //When Mouse enters Modifier Icon, display information text above the corresponding card
     public void OnMouseEnter()
     {
         if (infoPanel != null && infoText != null)
         {
             infoText.text = mod.GetInfo();
             infoPanel.SetActive(true);
-            infoPanel.transform.position = Input.mousePosition + new Vector3(0, 60, 0);
+            RectTransform thisRect = this.GetComponent<RectTransform>();
+            RectTransform infoPanelRect = infoPanel.GetComponent<RectTransform>();
+            infoPanelRect.anchoredPosition = thisRect.anchoredPosition + new Vector2(125f, 75f);
         }
     }
     public void OnMouseExit()
@@ -40,9 +43,11 @@ public class ModifierController : MonoBehaviour
         }
     }
 
-    //Position the tooltip near the mouse cursor
+    //Position the tooltip near the mouse cursor, redundancy
     void OnMouseOver()
     {
-            infoPanel.transform.position = Input.mousePosition; //+ new Vector3(20, -20, 0);
+        RectTransform thisRect = this.GetComponent<RectTransform>();
+        RectTransform infoPanelRect = infoPanel.GetComponent<RectTransform>();
+        infoPanelRect.anchoredPosition = thisRect.anchoredPosition + new Vector2(125f, 75f);
     }
 }
